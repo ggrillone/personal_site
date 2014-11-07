@@ -1,3 +1,8 @@
+2014-11-06 21:06
+
+  Install the twitter bootstrap, devise, and active admin gems so I can get
+  things up and running quickly.
+
 2014-11-06 20:56
 
   Configure .gitignore and setup base gems to use.

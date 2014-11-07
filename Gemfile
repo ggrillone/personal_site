@@ -8,6 +8,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'bcrypt', '~> 3.1.7'
+gem 'twitter-bootstrap-rails', '~> 3.2.0'
+gem 'activeadmin', github: 'activeadmin'
+gem 'devise', '~> 3.4.1'
 
 gem 'yard', '~> 0.8.7.6',          group: :doc
 gem 'spring',                      group: :development
