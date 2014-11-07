@@ -1,0 +1,7 @@
+2014-11-06 20:56
+
+  Configure .gitignore and setup base gems to use.
+
+2014-11-06 20:22
+
+  Initial commit new personal site, woohooooooooooo!!
