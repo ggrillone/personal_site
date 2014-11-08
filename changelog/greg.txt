@@ -1,3 +1,7 @@
+2014-11-08 16:14
+
+  Install and generate active admin/devise files and models.
+
 2014-11-08 16:01
 
   Add app name to environment config files.
