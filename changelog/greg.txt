@@ -1,3 +1,7 @@
+2014-11-09 13:35
+
+  Add model and fabricator for PostTag.
+
 2014-11-09 12:45
 
   Create fabricators for AdminUser, AdminUserAudit, Post, Tag, Comment, and SocialMedia.
