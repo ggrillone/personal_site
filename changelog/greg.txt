@@ -1,3 +1,7 @@
+2014-11-09 11:59
+
+  Remove test unit and install rspec-rails.
+
 2014-11-09 11:55
 
   Generate models and empty specs for AdminUserAudit, Post, Tag, Comment and SocialMedia.
