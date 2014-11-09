@@ -1,3 +1,7 @@
+2014-11-09 12:45
+
+  Create fabricators for AdminUser, AdminUserAudit, Post, Tag, Comment, and SocialMedia.
+
 2014-11-09 11:59
 
   Remove test unit and install rspec-rails.
