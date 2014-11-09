@@ -1,3 +1,7 @@
+2014-11-09 14:02
+
+  Add failing model specs for all models that test associations and validations.
+
 2014-11-09 13:35
 
   Add model and fabricator for PostTag.
