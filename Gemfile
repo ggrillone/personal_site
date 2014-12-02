@@ -16,7 +16,6 @@ gem 'yard', '~> 0.8.7.6',          group: :doc
 gem 'spring',                      group: :development
 
 group :development, :test do
-  gem 'debugger'
   gem 'rspec-rails'
   gem 'rspec-its', '~> 1.0.1'
   gem 'capybara', '~> 2.4.4'
@@ -28,4 +27,5 @@ group :test do
   gem 'simplecov', :require => false
   gem "simplecov-rcov"
   gem "ci_reporter"
+  gem 'faker'
 end 

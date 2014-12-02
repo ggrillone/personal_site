@@ -1,3 +1,42 @@
+2014-11-09 14:02
+
+  Add failing model specs for all models that test associations and validations.
+
+2014-11-09 13:35
+
+  Add model and fabricator for PostTag.
+
+2014-11-09 12:45
+
+  Create fabricators for AdminUser, AdminUserAudit, Post, Tag, Comment, and SocialMedia.
+
+2014-11-09 11:59
+
+  Remove test unit and install rspec-rails.
+
+2014-11-09 11:55
+
+  Generate models and empty specs for AdminUserAudit, Post, Tag, Comment and SocialMedia.
+  * AdminUserAudit: every action committed by the admin user should be logged
+  * Post: blog posts
+  * Tag: different tag types that can be applied to a post
+  * Comment: public comments attached to a post
+  * SocialMedia: just stores links to personal social media sites (linkedIn, etc..)
+
+2014-11-08 16:14
+
+  Install and generate active admin/devise files and models.
+
+2014-11-08 16:01
+
+  Add app name to environment config files.
+
+2014-11-08 15:53
+
+  New branch data-models:
+
+  * setup data models, db structure and specs for models
+
 2014-11-06 21:06
 
   Install the twitter bootstrap, devise, and active admin gems so I can get
