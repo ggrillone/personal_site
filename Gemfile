@@ -27,5 +27,5 @@ group :test do
   gem 'simplecov', :require => false
   gem "simplecov-rcov"
   gem "ci_reporter"
-  gem 'faker', '~> 1.4.3'
+  gem 'faker'
 end 

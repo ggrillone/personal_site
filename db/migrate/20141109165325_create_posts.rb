@@ -2,7 +2,7 @@ class CreatePosts < ActiveRecord::Migration
   def change
     create_table :posts do |t|
       t.integer :admin_user_id
-      t.string :body
+      t.text   :body
       t.string :title
       t.string :cover_image
       t.string :summary

@@ -6,7 +6,5 @@ RSpec.describe Comment, :type => :model do
   it { is_expected.to validate_presence_of :display_name }
   it { is_expected.to validate_presence_of :ip }
   it { is_expected.to validate_presence_of :body }
-  it { is_expected.to validate_presence_of :created_at }
-  it { is_expected.to validate_presence_of :updated_at }
   it { is_expected.to belong_to :post }
 end

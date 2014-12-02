@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20141109183431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -35,7 +36,7 @@ ActiveRecord::Schema.define(version: 20141109183431) do
     t.integer  "admin_user_id"
     t.string   "ip"
     t.string   "action"
-    t.string   "data"
+    t.hstore   "data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -63,7 +64,7 @@ ActiveRecord::Schema.define(version: 20141109183431) do
     t.string   "email"
     t.string   "display_name"
     t.string   "ip"
-    t.string   "body"
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -77,7 +78,7 @@ ActiveRecord::Schema.define(version: 20141109183431) do
 
   create_table "posts", force: true do |t|
     t.integer  "admin_user_id"
-    t.string   "body"
+    t.text     "body"
     t.string   "title"
     t.string   "cover_image"
     t.string   "summary"

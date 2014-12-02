@@ -18,6 +18,10 @@
         null,
         1,
         null,
+        null,
+        1,
+        1,
+        1,
         null
       ],
       "/Users/gregorygrillone/Documents/personal_site/app/admin/admin_user.rb": [
@@ -87,29 +91,54 @@
       ],
       "/Users/gregorygrillone/Documents/personal_site/app/models/admin_user_audit.rb": [
         1,
+        1,
+        null,
+        1,
         null
       ],
       "/Users/gregorygrillone/Documents/personal_site/app/models/comment.rb": [
+        1,
+        1,
+        null,
         1,
         null
       ],
       "/Users/gregorygrillone/Documents/personal_site/app/models/post.rb": [
         1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
         null
       ],
       "/Users/gregorygrillone/Documents/personal_site/app/models/post_tag.rb": [
+        1,
+        1,
+        1,
+        null,
         1,
         null
       ],
       "/Users/gregorygrillone/Documents/personal_site/app/models/social_media.rb": [
         1,
+        1,
         null
       ],
       "/Users/gregorygrillone/Documents/personal_site/app/models/tag.rb": [
         1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
         null
       ]
     },
-    "timestamp": 1415559687
+    "timestamp": 1417485141
   }
 }

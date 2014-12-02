@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Post, :type => :model do
   it { is_expected.to validate_presence_of :admin_user_id }
-  it { is_expected.to validate_presence_of :created_at }
-  it { is_expected.to validate_presence_of :updated_at }
   it { is_expected.to validate_presence_of :body }
   it { is_expected.to validate_presence_of :title }
   it { is_expected.to validate_presence_of :cover_image }
@@ -14,5 +12,5 @@ RSpec.describe Post, :type => :model do
   it { is_expected.to belong_to :admin_user }
   it { is_expected.to have_many :post_tags }
   it { is_expected.to have_many :comments }
-  it { is_expected.to have_many(:tags).through(:post_tag) }
+  it { is_expected.to have_many(:tags).through(:post_tags) }
 end
