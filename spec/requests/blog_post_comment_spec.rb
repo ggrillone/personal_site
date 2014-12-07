@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe 'PostComment' do
+RSpec.describe 'BlogPostComment' do
   let!(:admin_user) { Fabricate(:admin_user) }
-  let!(:blog_post) { Fabricate(:post, admin_user_id: admin_user.id) }
-  let!(:comment) { Fabricate(:comment, post_id: blog_post.id) }
+  let!(:blog_post) { Fabricate(:blog_post, admin_user_id: admin_user.id) }
+  let!(:comment) { Fabricate(:comment, blog_post_id: blog_post.id) }
   before { login(admin_user.email, admin_user.password) }
 
-  describe 'GET /admin/posts/:id/comments' do
-    before { get admin_post_comments_path(blog_post.id) }
+  describe 'GET /admin/blog_posts/:id/comments' do
+    before { get admin_blog_post_comments_path(blog_post.id) }
 
     it 'should render the index template' do
       expect(response).to render_template(:index)
@@ -21,7 +21,7 @@ RSpec.describe 'PostComment' do
       expect(response.body).to include(comment.id.to_s)
     end
 
-    it 'should render the post for the comment' do
+    it 'should render the blog post for the comment' do
       expect(response.body).to include(comment.blog_post.title)
     end
 
@@ -42,8 +42,8 @@ RSpec.describe 'PostComment' do
     end
   end
 
-  describe 'GET /admin/posts/:id/comments/:id' do
-    before { get admin_post_comment_path(blog_post.id, comment.id) }
+  describe 'GET /admin/blog_posts/:id/comments/:id' do
+    before { get admin_blog_post_comment_path(blog_post.id, comment.id) }
 
     it 'should render the show template' do
       expect(response).to render_template(:show)
@@ -58,8 +58,8 @@ RSpec.describe 'PostComment' do
     end
   end
 
-  describe 'GET /admin/posts/:id/comments/:id/edit' do
-    before { get edit_admin_post_comment_path(blog_post.id, comment.id) }
+  describe 'GET /admin/blog_posts/:id/comments/:id/edit' do
+    before { get edit_admin_blog_post_comment_path(blog_post.id, comment.id) }
 
     it 'should render the edit template' do
       expect(response).to render_template(:edit)
@@ -70,15 +70,15 @@ RSpec.describe 'PostComment' do
     end
   end
 
-  describe 'PUT /admin/posts/:id/comments/:id' do
+  describe 'PUT /admin/blog_posts/:id/comments/:id' do
     before do
-      put admin_post_comment_path(blog_post.id, comment.id), comment: {
+      put admin_blog_post_comment_path(blog_post.id, comment.id), comment: {
         body: 'hello world'
       }
     end
 
     it 'should redirect to the comments index page' do
-      expect(response).to redirect_to(admin_post_comments_path(blog_post.id))
+      expect(response).to redirect_to(admin_blog_post_comments_path(blog_post.id))
     end
 
     it 'should respond with a status of 302' do
@@ -94,11 +94,11 @@ RSpec.describe 'PostComment' do
     end
   end
 
-  describe 'DELETE /admin/posts/:id/comments' do
-    before { delete admin_post_comment_path(blog_post.id, comment.id) }
+  describe 'DELETE /admin/blog_posts/:id/comments' do
+    before { delete admin_blog_post_comment_path(blog_post.id, comment.id) }
 
     it 'should redirect to the comments index page' do
-      expect(response).to redirect_to(admin_post_comments_path(blog_post.id))
+      expect(response).to redirect_to(admin_blog_post_comments_path(blog_post.id))
     end
 
     it 'should respond with a status of 200' do

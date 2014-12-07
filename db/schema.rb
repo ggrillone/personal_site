@@ -59,24 +59,14 @@ ActiveRecord::Schema.define(version: 20141109183431) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "comments", force: true do |t|
-    t.integer  "post_id"
-    t.string   "email"
-    t.string   "display_name"
-    t.string   "ip"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "post_tags", force: true do |t|
-    t.integer  "post_id"
+  create_table "blog_post_tags", force: true do |t|
+    t.integer  "blog_post_id"
     t.integer  "tag_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "posts", force: true do |t|
+  create_table "blog_posts", force: true do |t|
     t.integer  "admin_user_id"
     t.text     "body"
     t.string   "title"
@@ -85,6 +75,16 @@ ActiveRecord::Schema.define(version: 20141109183431) do
     t.string   "live_demo_url"
     t.string   "live_demo_url_text"
     t.string   "github_source"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "comments", force: true do |t|
+    t.integer  "blog_post_id"
+    t.string   "email"
+    t.string   "display_name"
+    t.string   "ip"
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

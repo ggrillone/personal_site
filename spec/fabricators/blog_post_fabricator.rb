@@ -1,4 +1,4 @@
-Fabricator(:post) do
+Fabricator(:blog_post) do
   admin_user_id         { Fabricate(:admin_user).id }
   body                  { Faker::Lorem.paragraph(9) }
   title                 { Faker::Hacker.say_something_smart }

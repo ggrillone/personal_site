@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe Post do
+RSpec.describe BlogPost do
   let!(:admin_user) { Fabricate(:admin_user) }
-  let!(:blog_post) { Fabricate(:post) }
+  let!(:blog_post) { Fabricate(:blog_post) }
   before { login(admin_user.email, admin_user.password) }
 
-  describe 'GET /admin/posts' do
-    before { visit admin_posts_path }
+  describe 'GET /admin/blog_posts' do
+    before { get admin_blog_posts_path }
 
     it 'should render the index template' do
       expect(response).to render_template(:index)
@@ -37,8 +37,8 @@ RSpec.describe Post do
     end
   end
 
-  describe 'GET /admin/posts/:id' do
-    before { get admin_post_path(blog_post.id) }
+  describe 'GET /admin/blog_posts/:id' do
+    before { get admin_blog_post_path(blog_post.id) }
 
     it 'should render the show template' do
       expect(response).to render_template(:show)
@@ -53,7 +53,7 @@ RSpec.describe Post do
     end
 
     it 'should render the cover_image attribute' do
-      expect(reponse.body).to include(blog_post.cover_image)
+      expect(response.body).to include(blog_post.cover_image)
     end
 
     it 'should render the summary attribute' do
@@ -61,8 +61,8 @@ RSpec.describe Post do
     end
   end
 
-  describe 'GET /admin/posts/new' do
-    before { get new_admin_post_path }
+  describe 'GET /admin/blog_posts/new' do
+    before { get new_admin_blog_post_path }
 
     it 'should render the new template' do
       expect(response).to render_template(:new)
@@ -73,10 +73,9 @@ RSpec.describe Post do
     end
   end
 
-  describe 'POST /admin/posts' do
+  describe 'POST /admin/blog_posts' do
     before do
-      post admin_posts_path, post: {
-        admin_user_id:        admin_user.id,
+      post admin_blog_posts_path, blog_post: {
         body:                 'body text',
         title:                'title text',
         cover_image:          '/assets/post.png',
@@ -87,12 +86,14 @@ RSpec.describe Post do
       }
     end
 
-    it 'should redirect to the posts index page' do
-      expect(response).to redirect_to(admin_posts_path)
+    it 'should redirect to the blog posts index page' do
+      expect(response).to redirect_to(admin_blog_posts_path)
+      follow_redirect!
     end
 
     it 'should render a success message' do
-      expect(response.body).to include("Post was successfully created")
+      expect(response.body).to include("Blog post was successfully created")
+      follow_redirect!
     end
 
     it 'should response with a status of 302' do
@@ -100,8 +101,8 @@ RSpec.describe Post do
     end
   end
 
-  describe 'GET /admin/posts/:id/edit' do
-    before { get edit_admin_post_path(blog_post .id) }
+  describe 'GET /admin/blog_posts/:id/edit' do
+    before { get edit_admin_blog_post_path(blog_post .id) }
 
     it 'should render the edit template' do
       expect(response).to render_template(:edit)
@@ -112,15 +113,16 @@ RSpec.describe Post do
     end
   end
 
-  describe 'PUT /admin/posts/:id' do
+  describe 'PUT /admin/blog_posts/:id' do
     before do
-      put admin_post_path(blog_post.id), post: {
+      put admin_blog_post_path(blog_post.id), blog_post: {
         title: 'My new title'
       }
     end
 
-    it 'should redirect to the post show page' do
-      expect(response).to redirect_to(admin_post_path(blog_post.id))
+    it 'should redirect to the blog post show page' do
+      expect(response).to redirect_to(admin_blog_post_path(blog_post.id))
+      follow_redirect!
     end
 
     it 'should respond with a status of 302' do
@@ -128,19 +130,20 @@ RSpec.describe Post do
     end
 
     it 'should render a succeess message' do
-      expect(response.body).to include('Post was successfully updated')
+      expect(response.body).to include('Blog post was successfully updated')
+      follow_redirect!
     end
 
     it 'should update the title attribute' do
-      expect(Post.find(blog_post.id).title).to be('My new title')
+      expect(BlogPost.find(blog_post.id).title).to be('My new title')
     end
   end
 
-  describe 'DELETE /admin/posts/:id' do
-    before { delete admin_post_path(blog_post.id) }
+  describe 'DELETE /admin/blog_posts/:id' do
+    before { delete admin_blog_post_path(blog_post.id) }
 
-    it 'should redirect to the post index page' do
-      expect(response).to redirect_to(admin_posts_path)
+    it 'should redirect to the blog post index page' do
+      expect(response).to redirect_to(admin_blog_posts_path)
     end
 
     it 'should respond with a status of 200' do

@@ -1,3 +1,7 @@
+2014-12-09 13:39
+
+  Get the request specs for AdminUser and AdminUserAudit passing green. Refactor the Post resource to be called BlogPost because I ran into conflicts with syntax using the 'post' keywork in rspec.
+
 2014-12-03 20:13
 
   Add failing request specs for AdminUser, AdminUserAudit, Comment, Post, SocialMedia, and Tag resources.

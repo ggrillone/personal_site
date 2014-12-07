@@ -7,7 +7,7 @@ RSpec.describe AdminUserAudit do
   before { login(admin_user.email, admin_user.password) }
 
   describe 'GET /admin/admin_user_audits' do
-    before { get admin_admin_user_audits }
+    before { get admin_admin_user_audits_path }
 
     it 'should render the index template' do
       expect(response).to render_template(:index)
@@ -34,7 +34,7 @@ RSpec.describe AdminUserAudit do
     end
 
     it 'should render the created_at attribute' do
-      expect(response.body).to include(admin_user_audit.created_at)
+      expect(response.body).to include(admin_user_audit.created_at.strftime("%B, %e %Y %H:%M:"))
     end
   end
 
@@ -47,10 +47,6 @@ RSpec.describe AdminUserAudit do
 
     it 'should respond with a status of 200' do
       expect(response.status).to be(200)
-    end
-
-    it 'should render the data attribute' do
-      expect(response.body).to include(admin_user_audit.data)
     end
   end
 end

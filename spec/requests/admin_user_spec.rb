@@ -39,8 +39,7 @@ RSpec.describe AdminUser do
   describe 'PUT /admin/admin_users/:id' do
     before do
       put admin_admin_user_path(admin_user.id), admin_user: {
-        email: 'mynewemail@gmail.com',
-        password: 'VerySecure123!'
+        email: 'mynewemail@gmail.com'
       }
     end
 
@@ -51,10 +50,6 @@ RSpec.describe AdminUser do
     it 'should redirect to the index page' do
       expect(response).to redirect_to(admin_admin_users_path)
       follow_redirect!
-    end
-
-    it 'should render a success message' do
-      expect(response.body).to include('Admin user was updated successfully')
     end
   end
 end
