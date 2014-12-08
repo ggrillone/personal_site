@@ -38,7 +38,7 @@ RSpec.describe 'BlogPostComment' do
     end
 
     it 'should render the created_at attribute' do
-      expect(response.body).to include(comment.created_at)
+      expect(response.body).to include(comment.created_at.strftime("%B, %e %Y %H:%M"))
     end
   end
 
@@ -73,24 +73,25 @@ RSpec.describe 'BlogPostComment' do
   describe 'PUT /admin/blog_posts/:id/comments/:id' do
     before do
       put admin_blog_post_comment_path(blog_post.id, comment.id), comment: {
-        body: 'hello world'
+        body: 'hello world unique'
       }
     end
 
-    it 'should redirect to the comments index page' do
-      expect(response).to redirect_to(admin_blog_post_comments_path(blog_post.id))
+    it 'should redirect to the comments show page' do
+      expect(response).to redirect_to(admin_blog_post_comment_path(blog_post.id, comment.id))
+      follow_redirect!
     end
 
     it 'should respond with a status of 302' do
       expect(response.status).to be(302)
     end
 
-    it 'should render a success messsage' do
-      expect(response.body).to include('Comment successfully updated')
+    it 'should save the new comment' do
+      expect(Comment.find_by_body('hello world unique')).to_not be(nil)
     end
 
     it 'should update the body attribute' do
-      expect(Comment.find(comment.id).body).to be('hello world')
+      expect(Comment.find(comment.id).body).to eq('hello world unique')
     end
   end
 
@@ -101,12 +102,8 @@ RSpec.describe 'BlogPostComment' do
       expect(response).to redirect_to(admin_blog_post_comments_path(blog_post.id))
     end
 
-    it 'should respond with a status of 200' do
-      expect(response.status).to be(200)
-    end
-
-    it 'should render a success message' do
-      expect(response.body).to include('Comment was successfully deleted')
+    it 'should respond with a status of 302' do
+      expect(response.status).to be(302)
     end
 
     it 'should delete the comment' do

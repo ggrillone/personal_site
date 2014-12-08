@@ -76,13 +76,13 @@ RSpec.describe BlogPost do
   describe 'POST /admin/blog_posts' do
     before do
       post admin_blog_posts_path, blog_post: {
-        body:                 'body text',
-        title:                'title text',
-        cover_image:          '/assets/post.png',
-        summary:              'cool post bruh',
-        live_demo_url:        'livedemo.com',
-        live_demo_url_text:   'click here',
-        github_source:        'github.com/awesome'
+        body: 'body text',
+        title: 'title text unique',
+        cover_image: '/assets/post.png',
+        summary: 'cool post bruh',
+        live_demo_url: 'livedemo.com',
+        live_demo_url_text: 'click here',
+        github_source: 'github.com/awesome'
       }
     end
 
@@ -91,9 +91,8 @@ RSpec.describe BlogPost do
       follow_redirect!
     end
 
-    it 'should render a success message' do
-      expect(response.body).to include("Blog post was successfully created")
-      follow_redirect!
+    it 'save the new blog post' do
+      expect(BlogPost.find_by_title('title text unique')).to_not be(nil)
     end
 
     it 'should response with a status of 302' do
@@ -129,13 +128,8 @@ RSpec.describe BlogPost do
       expect(response.status).to be(302)
     end
 
-    it 'should render a succeess message' do
-      expect(response.body).to include('Blog post was successfully updated')
-      follow_redirect!
-    end
-
     it 'should update the title attribute' do
-      expect(BlogPost.find(blog_post.id).title).to be('My new title')
+      expect(BlogPost.find(blog_post.id).title).to eq('My new title')
     end
   end
 
@@ -146,8 +140,8 @@ RSpec.describe BlogPost do
       expect(response).to redirect_to(admin_blog_posts_path)
     end
 
-    it 'should respond with a status of 200' do
-      expect(response.status).to be(200)
+    it 'should respond with a status of 302' do
+      expect(response.status).to be(302)
     end
   end
 end

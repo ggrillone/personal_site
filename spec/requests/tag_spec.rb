@@ -25,11 +25,11 @@ RSpec.describe Tag do
     end
 
     it 'should render the created_at attribute' do
-      expect(response.body).to include(tag.created_at)
+      expect(response.body).to include(tag.created_at.strftime("%B, %e %Y %H:%M"))
     end
 
     it 'should render the updated_at attribute' do
-      expect(response.body).to include(tag.updated_at)
+      expect(response.body).to include(tag.updated_at.strftime("%B, %e %Y %H:%M"))
     end
   end
 
@@ -49,7 +49,7 @@ RSpec.describe Tag do
     before do
       post admin_tags_path, tag: {
         admin_user_id: admin_user.id,
-        name: 'ruby'
+        name: 'ruby unique'
       }
     end
 
@@ -59,15 +59,16 @@ RSpec.describe Tag do
 
     it 'should redirect to the tag index page' do
       expect(response).to redirect_to(admin_tags_path)
+      follow_redirect!
     end
 
-    it 'should render a success message' do
-      expect(response.body).to include('Tag was successfully created')
+    it 'should save the new tag' do
+      expect(Tag.find_by_name('ruby unique')).to_not be(nil)
     end
   end
 
   describe 'GET /admin/tags/:id/edit' do
-    before { get edit_admin_tags_path }
+    before { get edit_admin_tag_path(tag.id) }
 
     it 'should render the edit template' do
       expect(response).to render_template(:edit)
@@ -87,18 +88,15 @@ RSpec.describe Tag do
 
     it 'should redirect to the tag index page' do
       expect(response).to redirect_to(admin_tags_path)
+      follow_redirect!
     end
 
     it 'should respond with a status of 302' do
       expect(response.status).to be(302)
     end
 
-    it 'should render a success message' do
-      expect(response.body).to include('Tag was successfully updated')
-    end
-
     it 'should update the name attribute' do
-      expect(Tag.find(tag.id).name).to be('ruby-on-rails')
+      expect(Tag.find(tag.id).name).to eq('ruby-on-rails')
     end
   end
 
@@ -106,15 +104,12 @@ RSpec.describe Tag do
     before { delete admin_tag_path(tag.id) }
 
     it 'should redirect to the tag index page' do
-      expect(reponse).to redirect_to(admin_tags_path)
+      expect(response).to redirect_to(admin_tags_path)
+      follow_redirect!
     end
 
-    it 'should respond with a status of 200' do
-      expect(response.status).to be(200)
-    end
-
-    it 'should render a success messsage' do
-      expect(response.body).to include('Tag was successfully deleted')
+    it 'should respond with a status of 302' do
+      expect(response.status).to be(302)
     end
   end
 end

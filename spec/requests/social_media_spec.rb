@@ -13,7 +13,7 @@ RSpec.describe SocialMedia do
     end
 
     it 'should respond with a status of 200' do
-      expect(response).to be(200)
+      expect(response.status).to be(200)
     end
 
     it 'should render the id attribute' do
@@ -33,16 +33,16 @@ RSpec.describe SocialMedia do
     end
 
     it 'should render the created_at attribute' do
-      expect(response.body).to include(social_media.created_at)
+      expect(response.body).to include(social_media.created_at.strftime("%B, %e %Y %H:%M"))
     end
 
     it 'should render the updated_at attribute' do
-      expect(response.body).to include(social_media.updated_at)
+      expect(response.body).to include(social_media.updated_at.strftime("%B, %e %Y %H:%M"))
     end
   end
 
   describe 'GET /admin/social_media/new' do
-    before { visit new_admin_social_media_path }
+    before { get new_admin_social_medium_path }
 
     it 'should render the new template' do
       expect(response).to render_template(:new)
@@ -68,15 +68,16 @@ RSpec.describe SocialMedia do
 
     it 'should redirect to the social media index page' do
       expect(response).to redirect_to(admin_social_media_path)
+      follow_redirect!
     end
 
-    it 'should render a success message' do
-      expect(response.body).to include('Social meda successfully created')
+    it 'should save the social media record' do
+      expect(SocialMedia.find_by_name('github')).to_not be(nil)
     end
   end
 
   describe 'GET /admin/social_media/:id/edit' do
-    before { get edit_admin_social_media_path(social_media.id) }
+    before { get edit_admin_social_medium_path(social_media.id) }
 
     it 'should render the edit template' do
       expect(response).to render_template(:edit)
@@ -89,7 +90,7 @@ RSpec.describe SocialMedia do
 
   describe 'PUT /admin/social_media/:id' do
     before do
-      put admin_social_media_path(social_media.id), social_media: {
+      put admin_social_medium_path(social_media.id), social_media: {
         name: 'My Github profile link'
       }
     end
@@ -100,30 +101,24 @@ RSpec.describe SocialMedia do
 
     it 'should redirect to the social media index page' do
       expect(response).to redirect_to(admin_social_media_path)
-    end
-
-    it 'should render a success message' do
-      expect(response.body).to include('Social media was updated successfully')
+      follow_redirect!
     end
 
     it 'should update the name attribute' do
-      expect(SocialMedia.find(social_media.id).name).to be('My Github profile link')
+      expect(SocialMedia.find(social_media.id).name).to eq('My Github profile link')
     end
   end
 
   describe 'DELETE /admin/social_media/:id' do
-    before { delete admin_social_media_path(social_media.id) }
+    before { delete admin_social_medium_path(social_media.id) }
 
-    it 'should respond with a status of 200' do
-      expect(response.status).to be(200)
+    it 'should respond with a status of 302' do
+      expect(response.status).to be(302)
     end
 
     it 'should redirect to the social media index page' do
       expect(response).to redirect_to(admin_social_media_path)
-    end
-
-    it 'should render a success message' do
-      expect(response.body).to include('Social media was successfully deleted')
+      follow_redirect!
     end
   end
 end

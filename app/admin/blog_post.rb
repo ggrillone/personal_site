@@ -5,16 +5,15 @@ ActiveAdmin.register BlogPost do
 
   controller do
     def create
-      @blog_post = BlogPost.new(permitted_params)
+      @blog_post = BlogPost.new(permitted_params[:blog_post])
       @blog_post.admin_user_id = current_admin_user.id
 
       if @blog_post.save
         flash[:notice] = 'Blog post was successfully created.'
+        redirect_to admin_blog_posts_path
       else
         render 'new'
       end
-
-      redirect_to admin_blog_posts_path
     end
   end
 end

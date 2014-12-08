@@ -11,7 +11,7 @@ ActiveAdmin.register AdminUserAudit do
     column :action
     column :ip
     column :created_at do |admin_user_audit|
-      admin_user_audit.created_at.strftime("%B, %e %Y %H:%M:")
+      admin_user_audit.created_at.strftime("%B, %e %Y %H:%M")
     end
     actions
   end

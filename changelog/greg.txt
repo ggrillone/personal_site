@@ -1,3 +1,7 @@
+2014-12-09 22:00
+
+  Add passing green request specs for Comment, POst, SocialMedia, and Tag resources.
+
 2014-12-09 13:39
 
   Get the request specs for AdminUser and AdminUserAudit passing green. Refactor the Post resource to be called BlogPost because I ran into conflicts with syntax using the 'post' keywork in rspec.

@@ -34,7 +34,7 @@ RSpec.describe AdminUserAudit do
     end
 
     it 'should render the created_at attribute' do
-      expect(response.body).to include(admin_user_audit.created_at.strftime("%B, %e %Y %H:%M:"))
+      expect(response.body).to include(admin_user_audit.created_at.strftime("%B, %e %Y %H:%M"))
     end
   end
 
