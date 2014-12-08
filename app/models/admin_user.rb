@@ -5,6 +5,6 @@ class AdminUser < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :admin_user_audits
-  has_many :posts
+  has_many :blog_posts
   has_many :tags
 end
