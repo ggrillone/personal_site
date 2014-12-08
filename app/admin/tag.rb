@@ -1,6 +1,7 @@
 ActiveAdmin.register Tag do
   permit_params :name
   actions :all, except: [:show]
+  filter :name
 
   controller do
     def create

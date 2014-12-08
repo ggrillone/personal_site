@@ -1,15 +1,26 @@
-2014-12-09 22:43
+2014-12-07 15:27
+
+  Remove all filters from AdminUser and SocialMedia, they are not needed. Customize filters for AdminUserAudit, BlogPost, Comment, and Tag.
+
+2014-12-07 14:13
+
+  New branch issue-7:
+
+  * https://github.com/ggrillone/personal_site/issues/7
+  * customize the active admin filters
+
+2014-12-07 22:43
 
   Add dependent destroy relationships between tags/blog_post_tags and blog_post/comments.
 
-2014-12-09 22:34
+2014-12-07 22:34
 
   New branch issue-6:
 
   * Resolve issue: https://github.com/ggrillone/personal_site/issues/6
   * Add dependant destroy on models
 
-2014-12-09 22:22
+2014-12-07 22:22
 
   New branch issue-4:
 
@@ -17,22 +28,22 @@
   * Make the Tag.name field uniqe
 
 
-2014-12-09 22:18
+2014-12-07 22:18
 
   Add the approved_at attribute to the Comment resource.
 
-2014-12-09 22:06
+2014-12-07 22:06
 
   New branch issue-3:
 
   * Resolve issue: https://github.com/ggrillone/personal_site/issues/3
   * add an approved_at timestamp to the Comment model
 
-2014-12-09 22:00
+2014-12-07 22:00
 
   Add passing green request specs for Comment, POst, SocialMedia, and Tag resources.
 
-2014-12-09 13:39
+2014-12-07 13:39
 
   Get the request specs for AdminUser and AdminUserAudit passing green. Refactor the Post resource to be called BlogPost because I ran into conflicts with syntax using the 'post' keywork in rspec.
 

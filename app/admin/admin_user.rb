@@ -1,10 +1,7 @@
 ActiveAdmin.register AdminUser do
   permit_params :email, :password, :password_confirmation
   actions :all, except: [:show, :new, :create,:destroy]
-  filter :email
-  filter :current_sign_in_at
-  filter :sign_in_count
-  filter :created_at
+  config.filters = false
 
   controller do
     ##

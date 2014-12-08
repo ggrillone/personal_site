@@ -1,6 +1,7 @@
 ActiveAdmin.register SocialMedia do
   permit_params :url_href, :url_image, :name
   actions :all, except: [:show]
+  config.filters = false
 
   index do
     selectable_column

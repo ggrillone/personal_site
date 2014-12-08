@@ -1,5 +1,7 @@
 ActiveAdmin.register AdminUserAudit do
   actions :all, except: [:edit, :update, :destroy, :new, :create]
+  filter :action
+  filter :created_at
 
   index do
     selectable_column
