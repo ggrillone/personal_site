@@ -3,6 +3,7 @@ class Tag < ActiveRecord::Base
   has_many :blog_post_tags
 
   validates_presence_of :admin_user_id, :name
+  validates_uniqueness_of :name
 
   def count
     BlogPostTag.where(tag_id: id).count
