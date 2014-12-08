@@ -9,7 +9,7 @@ RSpec.describe Tag, :type => :model do
   it { is_expected.to validate_uniqueness_of :name }
   it { is_expected.to respond_to :count }
   it { is_expected.to belong_to :admin_user }
-  it { is_expected.to have_many :blog_post_tags }
+  it { is_expected.to have_many(:blog_post_tags).dependent(:destroy) }
 
   it 'is expected to return the total number of tags' do
     expect(tag.count).to be(2)
