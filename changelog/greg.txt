@@ -1,3 +1,14 @@
+2014-12-07 18:31
+
+  Move the dev/test tokens out of environment variables.
+
+2014-12-07 18:23
+
+  New branch issue-13:
+
+  * https://github.com/ggrillone/personal_site/issues/13
+  * move dev/test secret keys out of secrets.yml
+
 2014-12-07 15:27
 
   Remove all filters from AdminUser and SocialMedia, they are not needed. Customize filters for AdminUserAudit, BlogPost, Comment, and Tag.
