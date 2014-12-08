@@ -11,6 +11,6 @@ RSpec.describe BlogPost, :type => :model do
   it { is_expected.to validate_presence_of :github_source }
   it { is_expected.to belong_to :admin_user }
   it { is_expected.to have_many :blog_post_tags }
-  it { is_expected.to have_many :comments }
+  it { is_expected.to have_many(:comments).dependent(:destroy) }
   it { is_expected.to have_many(:tags).through(:blog_post_tags) }
 end
