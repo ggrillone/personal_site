@@ -40,6 +40,10 @@ RSpec.describe 'BlogPostComment' do
     it 'should render the created_at attribute' do
       expect(response.body).to include(comment.created_at.strftime("%B, %e %Y %H:%M"))
     end
+
+    it 'should render the approved_at attribute' do
+      expect(response.body).to include(comment.approved_at.strftime("%B, %e %Y %H:%M"))
+    end
   end
 
   describe 'GET /admin/blog_posts/:id/comments/:id' do

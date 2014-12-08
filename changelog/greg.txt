@@ -1,3 +1,7 @@
+2014-12-09 22:18
+
+  Add the approved_at attribute to the Comment resource.
+
 2014-12-09 22:06
 
   New branch issue-3:
