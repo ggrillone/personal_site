@@ -1,3 +1,7 @@
+2014-12-07 15:27
+
+  Remove all filters from AdminUser and SocialMedia, they are not needed. Customize filters for AdminUserAudit, BlogPost, Comment, and Tag.
+
 2014-12-07 14:13
 
   New branch issue-7:
