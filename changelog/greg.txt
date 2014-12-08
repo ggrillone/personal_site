@@ -1,3 +1,10 @@
+2014-12-07 18:33
+
+  New branch issue-14:
+
+  * https://github.com/ggrillone/personal_site/issues/14
+  * fix bad faker data
+
 2014-12-07 18:31
 
   Move the dev/test tokens out of environment variables.
