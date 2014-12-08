@@ -1,3 +1,10 @@
+2014-12-09 22:34  
+
+  New branch issue-6:
+
+  * Resolve issue: https://github.com/ggrillone/personal_site/issues/6
+  * Add dependant destroy on models
+
 2014-12-09 22:22
 
   New branch issue-4:
