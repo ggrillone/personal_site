@@ -4,4 +4,5 @@ Fabricator(:comment) do
   display_name      { Faker::Name.name }
   ip                { Faker::Internet.ip_v4_address }
   body              { Faker::Lorem.sentence }
+  approved_at       { Time.now.utc }
 end

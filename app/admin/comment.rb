@@ -16,6 +16,9 @@ ActiveAdmin.register Comment do
     column :created_at do |comment|
       comment.created_at.strftime("%B, %e %Y %H:%M")
     end
+    column :approved_at do |comment|
+      comment.approved_at.present? ? comment.approved_at.strftime("%B, %e %Y %H:%M") : nil
+    end
 
     actions
   end
