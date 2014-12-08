@@ -1,3 +1,7 @@
+2014-12-07 18:49
+
+  Update the faker modules used to generate data for the BlogPost.title and tag.name fields.
+
 2014-12-07 18:33
 
   New branch issue-14:
