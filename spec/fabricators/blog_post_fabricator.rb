@@ -1,7 +1,7 @@
 Fabricator(:blog_post) do
   admin_user_id         { Fabricate(:admin_user).id }
   body                  { Faker::Lorem.paragraph(9) }
-  title                 { Faker::Hacker.say_something_smart }
+  title                 { Faker::Commerce.product_name }
   cover_image           { Faker::Avatar.image }
   summary               { Faker::Lorem.sentence }
   live_demo_url         { Faker::Internet.url }
