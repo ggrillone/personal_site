@@ -1,3 +1,11 @@
+2014-12-09 22:22
+
+  New branch issue-4:
+
+  * Resolve issue: https://github.com/ggrillone/personal_site/issues/4
+  * Make the Tag.name field uniqe
+
+
 2014-12-09 22:18
 
   Add the approved_at attribute to the Comment resource.
