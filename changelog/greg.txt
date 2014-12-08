@@ -1,3 +1,10 @@
+2014-12-09 22:06
+
+  New branch issue-3:
+
+  * Resolve issue: https://github.com/ggrillone/personal_site/issues/3
+  * add an approved_at timestamp to the Comment model
+
 2014-12-09 22:00
 
   Add passing green request specs for Comment, POst, SocialMedia, and Tag resources.
