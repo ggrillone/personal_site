@@ -20,4 +20,20 @@ ActiveAdmin.register BlogPost do
       end
     end
   end
+
+  form do |f|
+    f.semantic_errors *f.object.errors.keys
+
+    f.inputs 'Blog post details' do
+      f.input :title
+      f.input :summary
+      f.input :body
+      f.input :cover_image
+      f.input :live_demo_url
+      f.input :live_demo_url_text
+      f.input :github_source
+    end
+
+    f.actions
+  end
 end

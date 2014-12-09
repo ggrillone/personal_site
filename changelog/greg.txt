@@ -1,3 +1,10 @@
+2014-12-07 19:14
+
+  New branch issue-15:
+
+  * https://github.com/ggrillone/personal_site/issues/15
+  * Remove the admin user field from the Blog post form
+
 2014-12-07 19:03
 
   New branch issue-21:
