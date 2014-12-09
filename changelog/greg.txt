@@ -1,3 +1,9 @@
+
+  New branch issue-18:
+
+  * https://github.com/ggrillone/personal_site/issues/18
+  * reorder the form fields in the social media form
+
 2014-12-07 19:22
 
   New branch issue-20:
