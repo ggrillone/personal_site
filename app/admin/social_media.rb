@@ -19,4 +19,16 @@ ActiveAdmin.register SocialMedia do
 
     actions
   end
+
+  form do |f|
+    f.semantic_errors *f.object.errors.keys
+
+    f.inputs 'Social media details' do
+      f.input :name
+      f.input :url_href
+      f.input :url_image
+    end
+
+    f.actions
+  end
 end
