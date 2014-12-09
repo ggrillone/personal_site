@@ -8,8 +8,13 @@ ActiveAdmin.register SocialMedia do
 
     column :id
     column :name
+    column :url_image do |social_media|
+      image_tag social_media.url_image, size: '50x50', alt: social_media.url_image
+    end
     column :url_href
-    column :url_image
+    column 'URL image path' do |social_media|
+      social_media.url_image
+    end
     column :created_at do |social_media|
       social_media.created_at.strftime("%B, %e %Y %H:%M")
     end
