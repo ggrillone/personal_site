@@ -1,3 +1,10 @@
+2014-12-07 19:22
+
+  New branch issue-20:
+
+  * https://github.com/ggrillone/personal_site/issues/20
+  * add site title
+
 2014-12-07 19:14
 
   New branch issue-15:
