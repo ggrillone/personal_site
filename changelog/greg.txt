@@ -1,58 +1,69 @@
-2014-12-07 19:40
+2014-12-09 08:13
+
+  Add a new column to the social media index table so that it renders the actual image that the url_image field is pointing to. Also add pngs for github and linkedin.
+
+2014-12-09 08:00
+
+  New branch issue-17:
+  
+  * https://github.com/ggrillone/personal_site/issues/17
+  * Render the social media icon url_href in an image tag
+
+2014-12-08 19:40
 
   New branch issue-18:
 
   * https://github.com/ggrillone/personal_site/issues/18
   * reorder the form fields in the social media form
 
-2014-12-07 19:22
+2014-12-08 19:22
 
   New branch issue-20:
 
   * https://github.com/ggrillone/personal_site/issues/20
   * add site title
 
-2014-12-07 19:14
+2014-12-08 19:14
 
   New branch issue-15:
 
   * https://github.com/ggrillone/personal_site/issues/15
   * Remove the admin user field from the Blog post form
 
-2014-12-07 19:03
+2014-12-08 19:03
 
   New branch issue-21:
 
   * https://github.com/ggrillone/personal_site/issues/21
   * remove the admin user field from the Tag#new/edit form
 
-2014-12-07 18:49
+2014-12-08 18:49
 
   Update the faker modules used to generate data for the BlogPost.title and tag.name fields.
 
-2014-12-07 18:33
+2014-12-08 18:33
 
   New branch issue-14:
 
   * https://github.com/ggrillone/personal_site/issues/14
   * fix bad faker data
 
-2014-12-07 18:31
+2014-12-08 18:31
 
   Move the dev/test tokens out of environment variables.
 
-2014-12-07 18:23
+2014-12-08 18:23
 
   New branch issue-13:
 
   * https://github.com/ggrillone/personal_site/issues/13
   * move dev/test secret keys out of secrets.yml
 
-2014-12-07 15:27
+2014-12-08 15:27
 
   Remove all filters from AdminUser and SocialMedia, they are not needed. Customize filters for AdminUserAudit, BlogPost, Comment, and Tag.
 
-2014-12-07 14:13
+2014-12-08 14:13
 
   New branch issue-7:
 
