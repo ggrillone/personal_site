@@ -12,4 +12,5 @@ if Rails.env.development?
 
   admin_user = AdminUser.create(email: 'greg@me.com', password: 'Password01', password_confirmation: 'Password01')
   10.times { Fabricate(:admin_user_audit, admin_user_id: admin_user.id) }
+  Fabricate(:blog_post, cover_image: 'sample.png')
 end

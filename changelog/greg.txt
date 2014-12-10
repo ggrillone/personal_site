@@ -1,3 +1,7 @@
+2014-12-10 11:41
+
+  Render the BlogPost.cover_image attribute inside and image tag for the show view. And add some seed data and a sample image for testing.
+
 2014-12-10 11:26
 
   New branch issue-16:

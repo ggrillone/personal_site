@@ -21,6 +21,29 @@ ActiveAdmin.register BlogPost do
     end
   end
 
+  show do
+    attributes_table do
+      row :id
+      row 'Author' do
+        blog_post.admin_user.email
+      end
+      row :title
+      row :summary
+      row :body
+      row :cover_image do
+        image_tag blog_post.cover_image
+      end
+      row 'Cover image path' do
+        blog_post.cover_image
+      end
+      row :live_demo_url
+      row :live_demo_url_text
+      row :github_source
+      row :created_at
+      row :updated_at
+    end
+  end
+
   form do |f|
     f.semantic_errors *f.object.errors.keys
 
