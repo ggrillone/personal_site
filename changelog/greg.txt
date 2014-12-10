@@ -1,3 +1,14 @@
+2014-12-10 11:41
+
+  Render the BlogPost.cover_image attribute inside and image tag for the show view. And add some seed data and a sample image for testing.
+
+2014-12-10 11:26
+
+  New branch issue-16:
+
+  * https://github.com/ggrillone/personal_site/issues/16
+  * add image tag to the blog post show view
+
 2014-12-09 08:13
 
   Add a new column to the social media index table so that it renders the actual image that the url_image field is pointing to. Also add pngs for github and linkedin.
