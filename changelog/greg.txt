@@ -1,11 +1,15 @@
-2014-12-10 17L46
+2014-12-10 20:15
+
+  Add the is_approved attribute to the blog post model and add scopes to the index view to toggle between all, approved and not approved.
+
+2014-12-10 17:46
 
   New branch issues-35-34-and-27:
 
   * https://github.com/ggrillone/personal_site/issues/35
   * Add a cover_image_alt_text attribute to the BlogPost model
   * https://github.com/ggrillone/personal_site/issues/34
-  * Add an approved_at timestamp attribute to the BlogPost model
+  * Add an is_approved boolean attribute to the BlogPost model
   * https://github.com/ggrillone/personal_site/issues/27
   * Remove the body and summary columns from BlogPost#index view
 

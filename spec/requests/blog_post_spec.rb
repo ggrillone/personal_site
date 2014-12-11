@@ -83,7 +83,8 @@ RSpec.describe BlogPost do
         summary: 'cool post bruh',
         live_demo_url: 'livedemo.com',
         live_demo_url_text: 'click here',
-        github_source: 'github.com/awesome'
+        github_source: 'github.com/awesome',
+        is_approved: true
       }
     end
 

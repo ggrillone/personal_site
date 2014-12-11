@@ -6,4 +6,7 @@ class BlogPost < ActiveRecord::Base
 
   validates_presence_of :admin_user_id, :body, :title, :cover_image, :cover_image_alt_text, :summary,
                         :live_demo_url, :live_demo_url_text, :github_source
+
+  scope :approved, -> { where(is_approved: true) }
+  scope :not_approved, -> { where(is_approved: false) }
 end

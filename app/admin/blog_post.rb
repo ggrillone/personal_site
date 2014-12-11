@@ -1,11 +1,16 @@
 ActiveAdmin.register BlogPost do
   permit_params :body, :title, :cover_image, :summary, :live_demo_url,
-                  :live_demo_url_text, :github_source, :cover_image_alt_text
+                  :live_demo_url_text, :github_source, :cover_image_alt_text,
+                  :is_approved
   actions :all
   filter :title
   filter :tags
   filter :created_at
   filter :updated_at
+
+  scope :all, default: true
+  scope :approved
+  scope :not_approved
 
   controller do
     def create
@@ -28,6 +33,7 @@ ActiveAdmin.register BlogPost do
         blog_post.admin_user.email
       end
       row :title
+      row :is_approved
       row :summary
       row :body
       row :cover_image do
@@ -49,6 +55,7 @@ ActiveAdmin.register BlogPost do
 
     f.inputs 'Blog post details' do
       f.input :title
+      f.input :is_approved
       f.input :summary
       f.input :body
       f.input :cover_image

@@ -4,6 +4,7 @@ Fabricator(:blog_post) do
   title                 { Faker::Commerce.product_name }
   cover_image           'sample.png'
   cover_image_alt_text  'This is a sample image..'
+  is_approved           [true, false].sample
   summary               { Faker::Lorem.sentence }
   live_demo_url         { Faker::Internet.url }
   live_demo_url_text    { Faker::App.name }
