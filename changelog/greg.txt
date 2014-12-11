@@ -1,3 +1,10 @@
+2014-12-11 08:51
+
+  New branch issue-32:
+
+  * https://github.com/ggrillone/personal_site/issues/32
+  * Add the url_href_text and url_image_text attributes to the social media model
+
 2014-12-10 20:20
 
   Customize the columns rendered in the blog post index view by remove the body and summary columns and adding a comment count column.
