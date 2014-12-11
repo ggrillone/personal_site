@@ -26,6 +26,24 @@ ActiveAdmin.register BlogPost do
     end
   end
 
+  index do
+    selectable_column
+
+    column :id
+    column :title
+    column :is_approved
+    column :live_demo_url
+    column :live_demo_url_text
+    column :github_source
+    column 'Comments' do |blog_post|
+      blog_post.comments.count
+    end
+    column :created_at
+    column :updated_at
+
+    actions
+  end
+
   show do
     attributes_table do
       row :id

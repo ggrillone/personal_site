@@ -1,3 +1,7 @@
+2014-12-10 20:20
+
+  Customize the columns rendered in the blog post index view by remove the body and summary columns and adding a comment count column.
+
 2014-12-10 20:15
 
   Add the is_approved attribute to the blog post model and add scopes to the index view to toggle between all, approved and not approved.
