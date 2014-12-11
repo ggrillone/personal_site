@@ -4,5 +4,9 @@ class BlogPost < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :tags, through: :blog_post_tags
 
-  validates_presence_of :admin_user_id, :body, :title, :cover_image, :summary, :live_demo_url, :live_demo_url_text, :github_source
+  validates_presence_of :admin_user_id, :body, :title, :cover_image, :cover_image_alt_text, :summary,
+                        :live_demo_url, :live_demo_url_text, :github_source
+
+  scope :approved, -> { where(is_approved: true) }
+  scope :not_approved, -> { where(is_approved: false) }
 end
