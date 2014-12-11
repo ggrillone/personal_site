@@ -5,6 +5,7 @@ RSpec.describe BlogPost, :type => :model do
   it { is_expected.to validate_presence_of :body }
   it { is_expected.to validate_presence_of :title }
   it { is_expected.to validate_presence_of :cover_image }
+  it { is_expected.to validate_presence_of :cover_image_alt_text }
   it { is_expected.to validate_presence_of :summary }
   it { is_expected.to validate_presence_of :live_demo_url }
   it { is_expected.to validate_presence_of :live_demo_url_text }

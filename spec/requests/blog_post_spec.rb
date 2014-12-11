@@ -78,7 +78,8 @@ RSpec.describe BlogPost do
       post admin_blog_posts_path, blog_post: {
         body: 'body text',
         title: 'title text unique',
-        cover_image: '/assets/post.png',
+        cover_image: 'sample.png',
+        cover_image_alt_text: 'sample text',
         summary: 'cool post bruh',
         live_demo_url: 'livedemo.com',
         live_demo_url_text: 'click here',

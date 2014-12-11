@@ -1,6 +1,6 @@
 ActiveAdmin.register BlogPost do
   permit_params :body, :title, :cover_image, :summary, :live_demo_url,
-                  :live_demo_url_text, :github_source
+                  :live_demo_url_text, :github_source, :cover_image_alt_text
   actions :all
   filter :title
   filter :tags
@@ -31,7 +31,7 @@ ActiveAdmin.register BlogPost do
       row :summary
       row :body
       row :cover_image do
-        image_tag blog_post.cover_image
+        image_tag blog_post.cover_image, alt: blog_post.cover_image_alt_text
       end
       row 'Cover image path' do
         blog_post.cover_image
@@ -52,6 +52,7 @@ ActiveAdmin.register BlogPost do
       f.input :summary
       f.input :body
       f.input :cover_image
+      f.input :cover_image_alt_text
       f.input :live_demo_url
       f.input :live_demo_url_text
       f.input :github_source
