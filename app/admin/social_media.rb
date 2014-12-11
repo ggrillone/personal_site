@@ -1,5 +1,5 @@
 ActiveAdmin.register SocialMedia do
-  permit_params :url_href, :url_image, :name
+  permit_params :url_href, :url_image, :name, :url_image_text, :url_href_text
   actions :all, except: [:show]
   config.filters = false
 
@@ -9,9 +9,11 @@ ActiveAdmin.register SocialMedia do
     column :id
     column :name
     column :url_image do |social_media|
-      image_tag social_media.url_image, size: '50x50', alt: social_media.url_image
+      image_tag social_media.url_image, size: '50x50', alt: social_media.url_image_text
     end
     column :url_href
+    column :url_href_text
+    column :url_image_text
     column 'URL image path' do |social_media|
       social_media.url_image
     end
@@ -31,7 +33,9 @@ ActiveAdmin.register SocialMedia do
     f.inputs 'Social media details' do
       f.input :name
       f.input :url_href
+      f.input :url_href_text
       f.input :url_image
+      f.input :url_image_text
     end
 
     f.actions
