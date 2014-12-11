@@ -57,7 +57,9 @@ RSpec.describe SocialMedia do
     before do
       post admin_social_media_path, social_media: {
         url_href: 'github.com/me',
+        url_href_text: 'github link',
         url_image: '/assets/github.png',
+        url_image_text: 'github image',
         name: 'github'
       }
     end

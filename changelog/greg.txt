@@ -1,3 +1,7 @@
+2014-12-11 09:07
+
+  Add the url_href_text and url_image_text attributes to the SocialMedia model, add fields for those attributes in the form, and columns for them in the index view.
+
 2014-12-11 08:51
 
   New branch issue-32:
