@@ -1,3 +1,7 @@
+2014-12-13 11:34
+
+  Add link_to tags for the url links for BlogPost.live_demo_url, BlogPost.github_source, and SocialMedia.url_href.
+
 2014-12-13 11:18
 
   New branch issue-37:
