@@ -1,3 +1,14 @@
+2014-12-13 11:34
+
+  Add link_to tags for the url links for BlogPost.live_demo_url, BlogPost.github_source, and SocialMedia.url_href.
+
+2014-12-13 11:18
+
+  New branch issue-37:
+
+  * https://github.com/ggrillone/personal_site/issues/37
+  * Render url paths inside of link_to tags instead of as plain text
+
 2014-12-11 09:07
 
   Add the url_href_text and url_image_text attributes to the SocialMedia model, add fields for those attributes in the form, and columns for them in the index view.

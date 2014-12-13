@@ -11,8 +11,9 @@ ActiveAdmin.register SocialMedia do
     column :url_image do |social_media|
       image_tag social_media.url_image, size: '50x50', alt: social_media.url_image_text
     end
-    column :url_href
-    column :url_href_text
+    column 'Social media link' do |social_media|
+      link_to social_media.url_href_text, social_media.url_href, target: '_blank'
+    end
     column :url_image_text
     column 'URL image path' do |social_media|
       social_media.url_image

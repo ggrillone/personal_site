@@ -32,9 +32,12 @@ ActiveAdmin.register BlogPost do
     column :id
     column :title
     column :is_approved
-    column :live_demo_url
-    column :live_demo_url_text
-    column :github_source
+    column "Live demo" do |blog_post|
+      link_to blog_post.live_demo_url_text, blog_post.live_demo_url, target: '_blank'
+    end
+    column :github_source do |blog_post|
+      link_to 'Github source', blog_post.github_source, target: '_blank'
+    end
     column 'Comments' do |blog_post|
       blog_post.comments.count
     end
