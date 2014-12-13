@@ -38,6 +38,9 @@ ActiveAdmin.register BlogPost do
     column :github_source do |blog_post|
       link_to 'Github source', blog_post.github_source, target: '_blank'
     end
+    column 'Tags' do |blog_post|
+      blog_post.tags.map(&:name).join(', ')
+    end
     column 'Comments' do |blog_post|
       blog_post.comments.count
     end
@@ -66,6 +69,9 @@ ActiveAdmin.register BlogPost do
       row :live_demo_url
       row :live_demo_url_text
       row :github_source
+      row 'Tags' do
+        blog_post.tags.map(&:name).join(', ')
+      end
       row :created_at
       row :updated_at
     end

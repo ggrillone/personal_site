@@ -35,6 +35,10 @@ RSpec.describe BlogPost do
     it 'should render the github_source attribute' do
       expect(response.body).to include(blog_post.github_source)
     end
+
+    it 'should render the tags for the blog post' do
+      expect(response.body).to include(blog_post.tags.map(&:name).join(', '))
+    end
   end
 
   describe 'GET /admin/blog_posts/:id' do
@@ -58,6 +62,10 @@ RSpec.describe BlogPost do
 
     it 'should render the summary attribute' do
       expect(response.body).to include(blog_post.summary)
+    end
+
+    it 'should render the tags for the blog post' do
+      expect(response.body).to include(blog_post.tags.map(&:name).join(', '))
     end
   end
 

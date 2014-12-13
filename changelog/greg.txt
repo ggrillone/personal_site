@@ -1,3 +1,7 @@
+2014-12-13 12:11
+
+  Render the tag names for a blog post in the blog post index and show views.
+
 2014-12-13 11:57
 
   New branch issue-19:
