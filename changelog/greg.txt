@@ -1,3 +1,10 @@
+2014-12-13 11:57
+
+  New branch issue-19:
+
+  * https://github.com/ggrillone/personal_site/issues/19
+  * Add BlogPost.tags to the blog post index view, show view, and new form.
+
 2014-12-13 11:37
 
   New branch issue-25:
