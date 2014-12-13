@@ -48,7 +48,6 @@ RSpec.describe Tag do
   describe 'POST /admin/tags' do
     before do
       post admin_tags_path, tag: {
-        admin_user_id: admin_user.id,
         name: 'ruby unique'
       }
     end
