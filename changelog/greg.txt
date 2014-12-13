@@ -1,3 +1,10 @@
+2014-12-13 11:37
+
+  New branch issue-25:
+
+  * https://github.com/ggrillone/personal_site/issues/25
+  * Setting the admin_user_id foreign key column should be done in the controller actions
+
 2014-12-13 11:34
 
   Add link_to tags for the url links for BlogPost.live_demo_url, BlogPost.github_source, and SocialMedia.url_href.
