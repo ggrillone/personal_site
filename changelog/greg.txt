@@ -1,3 +1,7 @@
+2014-12-18 08:26
+
+  Update blog posts create action to get tests passing green when passing in tags to a blog post. Implement the jquery tagit plugin.
+
 2014-12-13 12:11
 
   Render the tag names for a blog post in the blog post index and show views.

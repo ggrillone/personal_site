@@ -3,6 +3,7 @@ class BlogPost < ActiveRecord::Base
   has_many :blog_post_tags
   has_many :comments, dependent: :destroy
   has_many :tags, through: :blog_post_tags
+  accepts_nested_attributes_for :blog_post_tags
 
   validates_presence_of :admin_user_id, :body, :title, :cover_image, :cover_image_alt_text, :summary,
                         :live_demo_url, :live_demo_url_text, :github_source
