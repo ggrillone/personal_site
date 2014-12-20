@@ -101,7 +101,7 @@ RSpec.describe BlogPost do
         live_demo_url_text: 'click here',
         github_source: 'github.com/awesome',
         is_approved: true,
-        blog_post_tags_attributes: [{ tag_id: tag.id }]
+        blog_post_tags_attributes: [{ tag_id: tag.id }].to_json
       }
     end
 
@@ -119,7 +119,7 @@ RSpec.describe BlogPost do
     end
 
     it 'should have 1 tag' do
-      expect(BlogPost.find_by_title('title text unique').tags.count).to be(1)
+      expect(BlogPost.find_by_title('title text unique').tags.count).to eq(1)
     end
   end
 
@@ -139,7 +139,7 @@ RSpec.describe BlogPost do
     before do
       put admin_blog_post_path(blog_post.id), blog_post: {
         title: 'My new title',
-        blog_post_tags_attributes: [{ tag_id: tag2.id }]
+        blog_post_tags_attributes: [{ tag_id: tag2.id }].to_json
       }
     end
 
@@ -156,8 +156,8 @@ RSpec.describe BlogPost do
       expect(BlogPost.find(blog_post.id).title).to eq('My new title')
     end
 
-    it 'should have 2 tags' do
-      expect(BlogPost.find(blog_post.id).tags.count).to eq(2)
+    it 'should have 1 tags' do
+      expect(BlogPost.find(blog_post.id).tags.count).to eq(1)
     end
   end
 

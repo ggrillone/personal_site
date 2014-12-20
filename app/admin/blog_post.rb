@@ -14,22 +14,43 @@ ActiveAdmin.register BlogPost do
 
   controller do
     def create
-      blog_post_tags_attributes = permitted_params[:blog_post][:blog_post_tags_attributes].is_a?(String) ? JSON.parse(permitted_params[:blog_post][:blog_post_tags_attributes]) : permitted_params[:blog_post][:blog_post_tags_attributes]
-      Rails.logger.info '--- CREATE ---'
-      Rails.logger.info permitted_params[:blog_post][:blog_post_tags_attributes].is_a?(String)
-      Rails.logger.info blog_post_tags_attributes
-      Rails.logger.info JSON.parse(permitted_params[:blog_post][:blog_post_tags_attributes])
-      Rails.logger.info '---------'
+      blog_post_tags_attributes = JSON.parse(params[:blog_post][:blog_post_tags_attributes])
       params[:blog_post].delete(:blog_post_tags_attributes)
       params[:blog_post].delete(:tags)
       @blog_post = BlogPost.create(permitted_params[:blog_post])
-      @blog_post.blog_post_tags.build(blog_post_tags_attributes)
+      # only build the child tags for the blog post if tags are passed in, otherwise we get
+      # an error.
+      @blog_post.blog_post_tags.build(blog_post_tags_attributes) if blog_post_tags_attributes.present?
 
       if @blog_post.save
         flash[:notice] = 'Blog post was successfully created.'
         redirect_to admin_blog_posts_path
       else
+        @blog_post.destroy # rollback blog post
         render 'new'
+      end
+    end
+
+    def update
+      blog_post_tags_attributes = JSON.parse(params[:blog_post][:blog_post_tags_attributes])
+      params[:blog_post].delete(:blog_post_tags_attributes)
+      params[:blog_post].delete(:tags)
+      @blog_post = BlogPost.find(params[:id])
+      if @blog_post.update(permitted_params[:blog_post])
+        # destroy previous children, because otherwise it will append duplicate tags
+        @blog_post.blog_post_tags.destroy_all
+        # only build the child tags for the blog post if tags are passed in, otherwise we get
+        # an error.
+        @blog_post.update_attributes({ blog_post_tags_attributes: blog_post_tags_attributes }) if blog_post_tags_attributes.present?
+
+        if @blog_post.save
+          flash[:notice] = 'Blog post was successfully updated.'
+          redirect_to admin_blog_post_path(@blog_post.id)
+        else
+          render 'edit'
+        end
+      else
+        render 'edit'
       end
     end
   end

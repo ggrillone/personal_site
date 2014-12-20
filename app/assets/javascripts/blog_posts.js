@@ -17,7 +17,7 @@ $(document).ready(function() {
   // Catch submit so that we can match the tag
   // names chosen via the tagit plugin to their
   // corresponding tag ids to send to backend.
-  $('form#new_blog_post').submit(function() {
+  $('form').submit(function() {
     var tagLabelsArr = $("#blog-post-tags").val().split(',');
     var tagIds = [];
 
