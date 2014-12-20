@@ -2,8 +2,15 @@ require 'rails_helper'
 
 RSpec.describe BlogPost do
   let!(:admin_user) { Fabricate(:admin_user) }
-  let!(:blog_post) { Fabricate(:blog_post) }
-  before { login(admin_user.email, admin_user.password) }
+  let!(:blog_post) { Fabricate(:blog_post, admin_user_id: admin_user.id) }
+  let!(:tag) { Fabricate(:tag) }
+  let!(:tag2) { Fabricate(:tag) }
+  let!(:tag3) { Fabricate(:tag) }
+
+  before do
+    blog_post_tag = BlogPostTag.create!(blog_post_id: blog_post.id, tag_id: tag3.id)
+    login(admin_user.email, admin_user.password)
+  end
 
   describe 'GET /admin/blog_posts' do
     before { get admin_blog_posts_path }
@@ -35,6 +42,10 @@ RSpec.describe BlogPost do
     it 'should render the github_source attribute' do
       expect(response.body).to include(blog_post.github_source)
     end
+
+    it 'should render the tags for the blog post' do
+      expect(response.body).to include(blog_post.tags.map(&:name).join(', '))
+    end
   end
 
   describe 'GET /admin/blog_posts/:id' do
@@ -59,6 +70,10 @@ RSpec.describe BlogPost do
     it 'should render the summary attribute' do
       expect(response.body).to include(blog_post.summary)
     end
+
+    it 'should render the tags for the blog post' do
+      expect(response.body).to include(blog_post.tags.map(&:name).join(', '))
+    end
   end
 
   describe 'GET /admin/blog_posts/new' do
@@ -76,6 +91,7 @@ RSpec.describe BlogPost do
   describe 'POST /admin/blog_posts' do
     before do
       post admin_blog_posts_path, blog_post: {
+        admin_user_id: admin_user.id,
         body: 'body text',
         title: 'title text unique',
         cover_image: 'sample.png',
@@ -84,7 +100,8 @@ RSpec.describe BlogPost do
         live_demo_url: 'livedemo.com',
         live_demo_url_text: 'click here',
         github_source: 'github.com/awesome',
-        is_approved: true
+        is_approved: true,
+        blog_post_tags_attributes: [{ tag_id: tag.id }].to_json
       }
     end
 
@@ -99,6 +116,10 @@ RSpec.describe BlogPost do
 
     it 'should response with a status of 302' do
       expect(response.status).to be(302)
+    end
+
+    it 'should have 1 tag' do
+      expect(BlogPost.find_by_title('title text unique').tags.count).to eq(1)
     end
   end
 
@@ -117,7 +138,8 @@ RSpec.describe BlogPost do
   describe 'PUT /admin/blog_posts/:id' do
     before do
       put admin_blog_post_path(blog_post.id), blog_post: {
-        title: 'My new title'
+        title: 'My new title',
+        blog_post_tags_attributes: [{ tag_id: tag2.id }].to_json
       }
     end
 
@@ -132,6 +154,10 @@ RSpec.describe BlogPost do
 
     it 'should update the title attribute' do
       expect(BlogPost.find(blog_post.id).title).to eq('My new title')
+    end
+
+    it 'should have 1 tags' do
+      expect(BlogPost.find(blog_post.id).tags.count).to eq(1)
     end
   end
 
