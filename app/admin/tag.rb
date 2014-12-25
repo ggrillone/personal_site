@@ -21,6 +21,7 @@ ActiveAdmin.register Tag do
 
     column :id
     column :name
+    column :count
     column :created_at do |tag|
       tag.created_at.strftime("%B, %e %Y %H:%M")
     end

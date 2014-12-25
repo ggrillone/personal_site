@@ -1,3 +1,7 @@
+2014-12-25 15:36
+
+  Render the number of times each tag has been used in the tag index view.
+
 2014-12-25 15:24
 
   New branch issue-47:
