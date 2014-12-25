@@ -1,6 +1,7 @@
 ActiveAdmin.register Tag do
   permit_params :name, :admin_user_id
   actions :all, except: [:show]
+  includes :blog_post_tags
   filter :name
 
   controller do

@@ -2,6 +2,7 @@ ActiveAdmin.register Comment do
   belongs_to :blog_post
   permit_params :blog_post_id, :email, :display_name, :ip, :body
   actions :all, except: [:new, :create]
+  includes :blog_post
   filter :email
   filter :display_name
   filter :created_at

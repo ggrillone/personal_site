@@ -3,6 +3,7 @@ ActiveAdmin.register BlogPost do
                   :live_demo_url_text, :github_source, :cover_image_alt_text,
                   :tags, :is_approved, blog_post_tags_attributes: [:tag_id]
   actions :all
+  includes :comments, :tags
   filter :title
   filter :tags
   filter :created_at

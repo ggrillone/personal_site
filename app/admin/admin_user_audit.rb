@@ -1,5 +1,6 @@
 ActiveAdmin.register AdminUserAudit do
   actions :all, except: [:edit, :update, :destroy, :new, :create]
+  includes :admin_user
   filter :action
   filter :created_at
 
