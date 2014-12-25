@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Tag do
   let!(:admin_user) { Fabricate(:admin_user) }
   let!(:tag) { Fabricate(:tag, admin_user_id: admin_user.id) }
+  let!(:blog_post) { Fabricate(:blog_post, admin_user_id: admin_user.id) }
   before { login(admin_user.email, admin_user.password) }
 
   describe 'GET /admin/tags' do
@@ -30,6 +31,14 @@ RSpec.describe Tag do
 
     it 'should render the updated_at attribute' do
       expect(response.body).to include(tag.updated_at.strftime("%B, %e %Y %H:%M"))
+    end
+
+    it 'should render the number of blog posts that the tag has been used on' do
+      blog_post.blog_post_tags.build([{ tag_id: tag.id }])
+      blog_post.save
+
+      expect(tag.count).to eq(1)
+      expect(response.body).to include(tag.count.to_s)
     end
   end
 
