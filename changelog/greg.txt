@@ -1,3 +1,10 @@
+2014-12-25 13:46
+
+  New branch issue-48:
+
+  * https://github.com/ggrillone/personal_site/issues/48
+  * refactor controllers/forms so that where appropriate, admin_user_id is passed in as a hidden field as opposed to setting it in the controller.
+
 2014-12-20 12:30
 
   Override the create and update action for blog post to fix issue where blog post tags were not saving.
