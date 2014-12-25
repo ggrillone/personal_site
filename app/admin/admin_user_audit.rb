@@ -3,6 +3,7 @@ ActiveAdmin.register AdminUserAudit do
   includes :admin_user
   filter :action
   filter :created_at
+  config.sort_order = 'created_at_desc'
 
   index do
     selectable_column

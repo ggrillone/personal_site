@@ -7,6 +7,7 @@ ActiveAdmin.register Comment do
   filter :display_name
   filter :created_at
   filter :approved_at
+  config.sort_order = 'created_at_desc'
 
   index do
     selectable_column

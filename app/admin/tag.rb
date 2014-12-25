@@ -3,6 +3,7 @@ ActiveAdmin.register Tag do
   actions :all, except: [:show]
   includes :blog_post_tags
   filter :name
+  config.sort_order = 'name_asc'
 
   controller do
     def create

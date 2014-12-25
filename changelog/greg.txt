@@ -1,3 +1,7 @@
+2014-12-25 16:14
+
+  Add default sort orders for the AdminUser, AdminUserAudit, BlogPost, Comment, SocialMedia, and Tag index views.
+
 2014-12-25 16:02
 
   New branch issue-43:
