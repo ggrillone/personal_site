@@ -1,12 +1,11 @@
 ActiveAdmin.register Tag do
-  permit_params :name
+  permit_params :name, :admin_user_id
   actions :all, except: [:show]
   filter :name
 
   controller do
     def create
       @tag = Tag.new(permitted_params[:tag])
-      @tag.admin_user_id = current_admin_user.id
 
       if @tag.save
         flash[:notice] = 'Tag was successfully created.'
@@ -37,6 +36,7 @@ ActiveAdmin.register Tag do
 
     f.inputs 'Tag details' do
       f.input :name
+      f.input :admin_user_id, as: :hidden, input_html: { value: current_admin_user.id }
     end
 
     f.actions

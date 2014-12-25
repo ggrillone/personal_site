@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Tag do
   let!(:admin_user) { Fabricate(:admin_user) }
-  let!(:tag) { Fabricate(:tag) }
+  let!(:tag) { Fabricate(:tag, admin_user_id: admin_user.id) }
   before { login(admin_user.email, admin_user.password) }
 
   describe 'GET /admin/tags' do
@@ -48,7 +48,8 @@ RSpec.describe Tag do
   describe 'POST /admin/tags' do
     before do
       post admin_tags_path, tag: {
-        name: 'ruby unique'
+        name: 'ruby unique',
+        admin_user_id: admin_user.id
       }
     end
 

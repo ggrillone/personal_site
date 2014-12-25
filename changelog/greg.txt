@@ -1,3 +1,7 @@
+2014-12-25 13:56
+
+  Refactor the Tag create action and form so that instead of setting the admin_user_id field in the create action, it is sent as a hidden field value via the form.
+
 2014-12-25 13:46
 
   New branch issue-48:
