@@ -1,3 +1,10 @@
+2014-12-25 15:50
+
+  New branch issue-44:
+
+  * https://github.com/ggrillone/personal_site/issues/44
+  * implement eager loading via the active admin api where necessary
+
 2014-12-25 15:36
 
   Render the number of times each tag has been used in the tag index view.
