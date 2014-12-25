@@ -1,3 +1,7 @@
+2014-12-25 15:58
+
+  Implement eager loading for the AdminUserAudit, BlogPost, Comment, and Tag controllers.
+
 2014-12-25 15:50
 
   New branch issue-44:
