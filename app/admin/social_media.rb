@@ -2,6 +2,7 @@ ActiveAdmin.register SocialMedia do
   permit_params :url_href, :url_image, :name, :url_image_text, :url_href_text
   actions :all, except: [:show]
   config.filters = false
+  config.sort_order = 'name_asc'
 
   index do
     selectable_column

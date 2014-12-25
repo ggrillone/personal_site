@@ -8,6 +8,7 @@ ActiveAdmin.register BlogPost do
   filter :tags
   filter :created_at
   filter :updated_at
+  config.sort_order = 'created_at_desc'
 
   scope :all, default: true
   scope :approved

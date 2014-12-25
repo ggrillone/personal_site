@@ -1,3 +1,14 @@
+2014-12-25 16:14
+
+  Add default sort orders for the AdminUser, AdminUserAudit, BlogPost, Comment, SocialMedia, and Tag index views.
+
+2014-12-25 16:02
+
+  New branch issue-43:
+
+  * https://github.com/ggrillone/personal_site/issues/43
+  * add default sorting to index views
+
 2014-12-25 15:58
 
   Implement eager loading for the AdminUserAudit, BlogPost, Comment, and Tag controllers.
