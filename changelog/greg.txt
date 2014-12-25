@@ -1,3 +1,10 @@
+2014-12-25 15:24
+
+  New branch issue-47:
+
+  * https://github.com/ggrillone/personal_site/issues/47
+  * Add the tag count to the tag index view
+
 2014-12-25 13:56
 
   Refactor the Tag create action and form so that instead of setting the admin_user_id field in the create action, it is sent as a hidden field value via the form.
