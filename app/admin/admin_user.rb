@@ -12,6 +12,7 @@ ActiveAdmin.register AdminUser do
     # 2. Make it so updating the user password is not required.
     def update
       @admin_user = AdminUser.find(params[:id])
+      original_attributes = @admin_user.attributes
 
       successfully_updated = if needs_password?(@admin_user, params)
         @admin_user.update_with_password(permitted_params[:admin_user])
@@ -22,7 +23,28 @@ ActiveAdmin.register AdminUser do
         @admin_user.update_without_password(permitted_params[:admin_user])
       end
 
+
       if successfully_updated
+        # Auditing
+        action = params[:action]
+        changes = []
+        blacklist = ['password', 'password_confirmation', 'current_password', 'updated_at'] # exclude specific attributes
+        new_attributes = @admin_user.attributes
+        original_attributes.keys.each do |key|
+          if !blacklist.include?(key.to_s) && original_attributes[key] != new_attributes[key]
+            changes.push({ :"#{key.to_sym}" => { original_value: original_attributes[key], new_value: new_attributes[key] } })
+          end
+        end
+        # TODO: cleanse params of values we don't want to expose
+        data = {
+          http_method: request.method,
+          params: params,
+          changes: changes
+        }
+        a = AdminUserAudit.create(admin_user_id: current_admin_user.id, action: action, data: data, ip: request.ip)
+        Rails.logger.info '------ LOGGGG  ---'
+        Rails.logger.info a.attributes
+
         # Need to re-query the currently signed in Admin because
         # the helper we are given (current_admin_user) doesn't seem to get
         # updated automatically so it tries to sign in with the previous password

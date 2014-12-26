@@ -49,4 +49,40 @@ RSpec.describe AdminUserAudit do
       expect(response.status).to be(200)
     end
   end
+
+  describe 'Create audit record when updating an AdminUser resource' do
+    it 'should create a new audit record' do
+      expect{
+        put admin_admin_user_path(admin_user.id), admin_user: {
+          email: 'yoyoyo1@domain.com',
+        }
+      }.to change{AdminUserAudit.count}.by(1)
+    end
+  end
+
+  describe 'Logging changed attributes when updating and AdminUser resource' do
+    let(:original_email) { admin_user.email }
+
+    before do
+      put admin_admin_user_path(admin_user.id), admin_user: {
+        email: 'somenewemail1@domain.com',
+      }
+    end
+
+    it 'should log it as a update action' do
+      expect(AdminUserAudit.last.action).to eq('update')
+    end
+
+    it 'should log the id of the admin user that performed the create' do
+      expect(AdminUserAudit.last.admin_user_id).to eq(admin_user.id)
+    end
+
+    it 'should include the previous value of the email address' do
+      expect(AdminUserAudit.last.data.to_s).to include(original_email)
+    end
+
+    it 'should include the new value of the email address' do
+      expect(AdminUserAudit.last.data.to_s).to include('somenewemail1@domain.com')
+    end
+  end
 end

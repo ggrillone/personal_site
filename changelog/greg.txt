@@ -1,3 +1,7 @@
+2014-12-26 14:25
+
+  Inside the AdminUser#update action log when an AdminUser resource is updated. Add passing specs to verify it works properly.
+
 2014-12-26 12:41
 
   New branch issue-8:
