@@ -1,3 +1,7 @@
+2014-12-26 16:12
+
+  Refactor the audit code into a separate module. Also add a config/blacklists directory to store .yml files of attributes that should be excluded.
+
 2014-12-26 14:25
 
   Inside the AdminUser#update action log when an AdminUser resource is updated. Add passing specs to verify it works properly.
