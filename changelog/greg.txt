@@ -1,3 +1,13 @@
+2014-12-30 15:15
+
+  New branch issue-53:
+
+  * https://github.com/ggrillone/personal_site/issues/53
+  * Add tab scopes to the following index fields:
+    * Comment#index: All, Approved, Not Approved
+    * BlogPost#index: All, Approved, Not Approved
+    * AdminUserAudit#index: All, Create, Update, Delete
+
 2014-12-30 15:11
 
   Update teh url_href_text textarea so it is instead rendered as a string input field.
