@@ -1,3 +1,7 @@
+2014-12-30 15:11
+
+  Update teh url_href_text textarea so it is instead rendered as a string input field.
+
 2014-12-30 15:03
 
   New branch issue-54:
