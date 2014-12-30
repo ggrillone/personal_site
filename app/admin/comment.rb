@@ -9,6 +9,10 @@ ActiveAdmin.register Comment do
   filter :approved_at
   config.sort_order = 'created_at_desc'
 
+  scope :all, default: true
+  scope :approved
+  scope :not_approved
+
   index do
     selectable_column
 

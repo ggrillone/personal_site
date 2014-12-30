@@ -5,6 +5,11 @@ ActiveAdmin.register AdminUserAudit do
   filter :created_at
   config.sort_order = 'created_at_desc'
 
+  scope :all, default: true
+  scope 'Create', :create_action
+  scope 'Update', :update_action
+  scope 'Delete', :delete_action
+
   index do
     selectable_column
 
