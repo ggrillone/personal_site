@@ -1,3 +1,7 @@
+2014-12-30 15:54
+
+  Add the all, approved, adn not approved scopes to the comments and blog posts index views. Add the all, create, update, and delete scopes to the admin user audit index view.
+
 2014-12-30 15:15
 
   New branch issue-53:
