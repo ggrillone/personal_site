@@ -3,7 +3,7 @@ development:
   database: personal_site_development
   pool: 5
   host: localhost
-  username: postgres
+  username: gregorygrillone
 
 test:
   adapter: postgresql
