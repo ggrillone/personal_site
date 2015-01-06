@@ -1,3 +1,7 @@
+2015-01-05 20:17
+
+  Update the AuditLog.cleanse class method so that it goes through any sub-hashes in the params, i.e. { admin_user: { password: 'here is my pass' } }.
+
 2014-12-26 16:12
 
   Refactor the audit code into a separate module. Also add a config/blacklists directory to store .yml files of attributes that should be excluded.

@@ -1,6 +1,12 @@
 ##
 # A generic module for creating log records
 # in the database
+
+# TODO:
+# 1. Fix cleansing of params, so it excludes admin_user.password etc..
+# 2. Refactor the value stored in the action attribute so instead
+# of 'update' it should be AdminUsersController#update.
+# 3. Refactor display data in AdminUserAudit#show view to be more readable.
 module AuditLog
   # @params resource The resource rails model to save the log to.
   # @params admin_user_id The id of the current admin user performing the action.
@@ -20,7 +26,15 @@ module AuditLog
     cleansed_params = {}
 
     vals.keys.each do |key|
-      cleansed_params[key] = vals[key] if !blacklist.include?(key.to_s)
+      if vals[key].is_a?(Hash)
+        cleansed_params[key] = {}
+
+        vals[key].keys.each do |sub_key|
+          cleansed_params[key][sub_key] = vals[key][sub_key] if !blacklist.include?(sub_key.to_s)
+        end
+      else
+        cleansed_params[key] = vals[key] if !blacklist.include?(key.to_s)
+      end
     end
 
     cleansed_params
@@ -43,15 +57,16 @@ module AuditLog
   end
 
   def self.get_changed_attributes(blacklist_file, original_attrs = {}, new_attrs = {})
-    blacklist = self.get_blacklist(blacklist_file)
+    original_attrs_cleansed = self.cleanse(blacklist_file, original_attrs)
+    new_attrs_cleansed = self.cleanse(blacklist_file, new_attrs)
     changes = []
 
-    original_attrs.keys.each do |key|
-      if !blacklist.include?(key.to_s) && original_attrs[key] != new_attrs[key]
+    original_attrs_cleansed.keys.each do |key|
+      if original_attrs_cleansed[key] != new_attrs_cleansed[key]
         changes.push({
           :"#{key.to_sym}" => {
-            original_value: original_attrs[key],
-            new_value: new_attrs[key]
+            original_value: original_attrs_cleansed[key],
+            new_value: new_attrs_cleansed[key]
           }
         })
       end
