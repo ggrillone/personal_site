@@ -43,14 +43,17 @@ module AuditLog
   def self.build_object(admin_user_id, request_obj, params, blacklist_file, original_attrs, new_attrs)
     cleansed_params = self.cleanse(blacklist_file, params)
     changed_vals = self.get_changed_attributes(blacklist_file, original_attrs, new_attrs)
+    action = "#{params[:controller].classify.demodulize}##{params[:action]}"
 
     {
       admin_user_id: admin_user_id,
-      action: params[:action],
+      action: action,
       data: {
-        http_method: request_obj.method,
-        params: cleansed_params,
-        changes: changed_vals.present? ? changed_vals : nil
+        raw_data: {
+          http_method: request_obj.method,
+          params: cleansed_params,
+          changes: changed_vals.present? ? changed_vals : nil
+        }.to_json
       },
       ip: request_obj.ip
     }

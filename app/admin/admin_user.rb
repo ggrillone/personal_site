@@ -15,10 +15,8 @@ ActiveAdmin.register AdminUser do
       original_attrs = @admin_user.attributes
 
       successfully_updated = if needs_password?(@admin_user, params)
-        Rails.logger.info "----- NEEDS PASSWORD!!! -----"
         @admin_user.update_with_password(permitted_params[:admin_user])
       else
-        Rails.logger.info "----- NOTTT NEEDS PASSWORD!!! -----"
         # remove the virtual current_password attribute
         # update_without_password doesn't know how to ignore it
         params[:admin_user].delete(:current_password)

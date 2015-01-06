@@ -70,7 +70,7 @@ RSpec.describe AdminUserAudit do
     end
 
     it 'should log it as a update action' do
-      expect(AdminUserAudit.last.action).to eq('update')
+      expect(AdminUserAudit.last.action).to eq('AdminUser#update')
     end
 
     it 'should log the id of the admin user that performed the create' do
