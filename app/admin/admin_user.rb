@@ -12,7 +12,7 @@ ActiveAdmin.register AdminUser do
     # 2. Make it so updating the user password is not required.
     def update
       @admin_user = AdminUser.find(params[:id])
-      original_attrs = @admin_user.attributes
+      original_attrs = @admin_user.attributes # Auditing
 
       successfully_updated = if needs_password?(@admin_user, params)
         @admin_user.update_with_password(permitted_params[:admin_user])

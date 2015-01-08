@@ -2,11 +2,6 @@
 # A generic module for creating log records
 # in the database
 
-# TODO:
-# 1. Fix cleansing of params, so it excludes admin_user.password etc..
-# 2. Refactor the value stored in the action attribute so instead
-# of 'update' it should be AdminUsersController#update.
-# 3. Refactor display data in AdminUserAudit#show view to be more readable.
 module AuditLog
   # @params resource The resource rails model to save the log to.
   # @params admin_user_id The id of the current admin user performing the action.
@@ -32,6 +27,18 @@ module AuditLog
         vals[key].keys.each do |sub_key|
           cleansed_params[key][sub_key] = vals[key][sub_key] if !blacklist.include?(sub_key.to_s)
         end
+      elsif vals[key].is_a?(Array)
+        cleansed_params[key] = []
+
+        vals[key].each do |obj|
+          if obj.is_a?(Hash)
+            obj.keys.each do |obj_key|
+              cleansed_params[key].push(obj[obj_key])
+            end
+          else
+            cleansed_params[key].push(obj)
+          end
+        end
       else
         cleansed_params[key] = vals[key] if !blacklist.include?(key.to_s)
       end
@@ -42,7 +49,7 @@ module AuditLog
 
   def self.build_object(admin_user_id, request_obj, params, blacklist_file, original_attrs, new_attrs)
     cleansed_params = self.cleanse(blacklist_file, params)
-    changed_vals = self.get_changed_attributes(blacklist_file, original_attrs, new_attrs)
+    changed_vals = (original_attrs.nil? && new_attrs.nil?) ? nil : self.get_changed_attributes(blacklist_file, original_attrs, new_attrs)
     action = "#{params[:controller].classify.demodulize}##{params[:action]}"
 
     {
@@ -65,13 +72,35 @@ module AuditLog
     changes = []
 
     original_attrs_cleansed.keys.each do |key|
-      if original_attrs_cleansed[key] != new_attrs_cleansed[key]
+      if original_attrs_cleansed[key].is_a?(Hash)
+        changes.push({ :"#{key.to_sym}" => {} })
+
+        original_attrs_cleansed[key].keys.each do |sub_key|
+          if original_attrs_cleansed[key][sub_key] != new_attrs_cleansed[key][sub_key]
+            changes.last[key][sub_key] = {
+              :"#{sub_key.to_sym}" => {
+                original_value: original_attrs_cleansed[key][sub_key],
+                new_value: new_attrs_cleansed[key][sub_key]
+              }
+            }
+          end
+        end
+      elsif original_attrs_cleansed[key].is_a?(Array)
         changes.push({
           :"#{key.to_sym}" => {
             original_value: original_attrs_cleansed[key],
             new_value: new_attrs_cleansed[key]
           }
         })
+      else
+        if original_attrs_cleansed[key] != new_attrs_cleansed[key]
+          changes.push({
+            :"#{key.to_sym}" => {
+              original_value: original_attrs_cleansed[key],
+              new_value: new_attrs_cleansed[key]
+            }
+          })
+        end
       end
     end
 
