@@ -9,6 +9,23 @@ ActiveAdmin.register Comment do
   filter :approved_at
   config.sort_order = 'created_at_desc'
 
+  controller do
+    def update
+      @comment = Comment.find(params[:id])
+      original_attrs = @comment.attributes
+
+      if @comment.update(permitted_params[:comment])
+        new_attrs = @comment.attributes
+        AuditLog.create(AdminUserAudit, current_admin_user.id, request, params, 'admin_user_audit_log_blacklist.yml', original_attrs, new_attrs)
+
+        flash[:notice] = "Comment was successfully updated."
+        redirect_to admin_blog_post_comments_path(@comment.blog_post_id)
+      else
+        render 'edit'
+      end
+    end
+  end
+
   index do
     selectable_column
 

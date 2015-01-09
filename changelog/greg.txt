@@ -1,3 +1,7 @@
+2015-01-09 17:30
+
+  Implement admin auditing for comments.
+
 2015-01-07 19:36
 
   Implement logging for the create and update actions for blog post.
