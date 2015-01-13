@@ -1,3 +1,7 @@
+2015-01-12 20:41
+
+  Add admin auditing for the create, update and destroy actions for the Tag resource.
+
 2015-01-12 20:28
 
   Implement admin auditing for social media create, update and destroy methods.
