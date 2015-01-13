@@ -8,6 +8,9 @@ ActiveAdmin.register Comment do
   filter :created_at
   filter :approved_at
   config.sort_order = 'created_at_desc'
+  scope :all, default: true
+  scope :approved
+  scope :not_approved
 
   controller do
     def update

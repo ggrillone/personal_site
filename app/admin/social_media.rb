@@ -76,7 +76,7 @@ ActiveAdmin.register SocialMedia do
     f.inputs 'Social media details' do
       f.input :name
       f.input :url_href
-      f.input :url_href_text
+      f.input :url_href_text, as: :string
       f.input :url_image
       f.input :url_image_text
     end
