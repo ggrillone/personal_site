@@ -1,3 +1,46 @@
+2015-01-12 20:51
+
+  Add auditing for the destroy action for the BlogPost and Comment resources.
+
+2015-01-12 20:41
+
+  Add admin auditing for the create, update and destroy actions for the Tag resource.
+
+2015-01-12 20:28
+
+  Implement admin auditing for social media create, update and destroy methods.
+
+2015-01-09 17:30
+
+  Implement admin auditing for comments.
+
+2015-01-07 19:36
+
+  Implement logging for the create and update actions for blog post.
+
+2015-01-05 21:21
+
+  Update the output of the log data in the show view to make it more user-friendly and easier to read.
+
+2015-01-05 20:17
+
+  Update the AuditLog.cleanse class method so that it goes through any sub-hashes in the params, i.e. { admin_user: { password: 'here is my pass' } }.
+
+2014-12-26 16:12
+
+  Refactor the audit code into a separate module. Also add a config/blacklists directory to store .yml files of attributes that should be excluded.
+
+2014-12-26 14:25
+
+  Inside the AdminUser#update action log when an AdminUser resource is updated. Add passing specs to verify it works properly.
+
+2014-12-26 12:41
+
+  New branch issue-8:
+
+  * https://github.com/ggrillone/personal_site/issues/8
+  * implement auditing
+
 2014-12-30 15:54
 
   Add the all, approved, adn not approved scopes to the comments and blog posts index views. Add the all, create, update, and delete scopes to the admin user audit index view.

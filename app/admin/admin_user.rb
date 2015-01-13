@@ -1,6 +1,6 @@
 ActiveAdmin.register AdminUser do
-  permit_params :email, :password, :password_confirmation
-  actions :all, except: [:show, :new, :create,:destroy]
+  permit_params :email, :current_password, :password, :password_confirmation
+  actions :all, except: [:show, :new, :create, :destroy]
   config.filters = false
   config.sort_order = 'email_asc'
 
@@ -12,6 +12,7 @@ ActiveAdmin.register AdminUser do
     # 2. Make it so updating the user password is not required.
     def update
       @admin_user = AdminUser.find(params[:id])
+      original_attrs = @admin_user.attributes # Auditing
 
       successfully_updated = if needs_password?(@admin_user, params)
         @admin_user.update_with_password(permitted_params[:admin_user])
@@ -22,7 +23,12 @@ ActiveAdmin.register AdminUser do
         @admin_user.update_without_password(permitted_params[:admin_user])
       end
 
+
       if successfully_updated
+        # Auditing
+        new_attrs = @admin_user.attributes
+        AuditLog.create(AdminUserAudit, current_admin_user.id, request, params, 'admin_user_audit_log_blacklist.yml', original_attrs, new_attrs)
+
         # Need to re-query the currently signed in Admin because
         # the helper we are given (current_admin_user) doesn't seem to get
         # updated automatically so it tries to sign in with the previous password
@@ -42,8 +48,9 @@ ActiveAdmin.register AdminUser do
       # ie if password or email was changed
       # extend this as needed
       def needs_password?(admin_user, params)
-        params[:admin_user][:password].present? ||
-          params[:admin_user][:password_confirmation].present?
+        params[:admin_user][:current_password].present? ||
+          params[:admin_user][:password].present? ||
+            params[:admin_user][:password_confirmation].present?
       end
   end
 

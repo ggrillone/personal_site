@@ -81,8 +81,8 @@ RSpec.describe 'BlogPostComment' do
       }
     end
 
-    it 'should redirect to the comments show page' do
-      expect(response).to redirect_to(admin_blog_post_comment_path(blog_post.id, comment.id))
+    it 'should redirect to the comments index page' do
+      expect(response).to redirect_to(admin_blog_post_comments_path(blog_post.id))
       follow_redirect!
     end
 
