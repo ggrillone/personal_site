@@ -1,6 +1,6 @@
 ActiveAdmin.register AdminUser do
   permit_params :email, :current_password, :password, :password_confirmation
-  actions :all, except: [:show, :new, :create,:destroy]
+  actions :all, except: [:show, :new, :create, :destroy]
   config.filters = false
   config.sort_order = 'email_asc'
 

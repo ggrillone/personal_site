@@ -1,3 +1,7 @@
+2015-01-12 20:51
+
+  Add auditing for the destroy action for the BlogPost and Comment resources.
+
 2015-01-12 20:41
 
   Add admin auditing for the create, update and destroy actions for the Tag resource.

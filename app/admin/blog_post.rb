@@ -67,6 +67,19 @@ ActiveAdmin.register BlogPost do
         render 'edit'
       end
     end
+
+    def destroy
+      @blog_post = BlogPost.find(params[:id])
+
+      if @blog_post.delete
+        AuditLog.create(AdminUserAudit, current_admin_user.id, request, params, 'admin_user_audit_log_blacklist.yml', nil, nil)
+        flash[:notice] = "Blog post successfully deleted."
+        redirect_to admin_blog_posts_path
+      else
+        flash[:alert] = "Blog post failed to delete."
+        redirect_to :back
+      end
+    end
   end
 
   index do

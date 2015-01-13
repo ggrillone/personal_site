@@ -24,6 +24,20 @@ ActiveAdmin.register Comment do
         render 'edit'
       end
     end
+
+    def destroy
+      @comment = Comment.find(params[:id])
+      blog_post_id = @comment.blog_post_id
+
+      if @comment.delete
+        AuditLog.create(AdminUserAudit, current_admin_user.id, request, params, 'admin_user_audit_log_blacklist.yml', nil, nil)
+        flash[:notice] = 'Comment was successfully deleted.'
+        redirect_to admin_blog_post_comments_path(blog_post_id)
+      else
+        flash[:alert] = 'Comment failed to delete.'
+        redirect_to :back
+      end
+    end
   end
 
   index do
