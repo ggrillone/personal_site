@@ -98,7 +98,7 @@ ActiveAdmin.register BlogPost do
       blog_post.tags.map(&:name).join(', ')
     end
     column 'Comments' do |blog_post|
-      blog_post.comments.count
+      link_to blog_post.comments.count, admin_blog_post_comments_path(blog_post.id)
     end
     column :created_at
     column :updated_at
@@ -107,6 +107,10 @@ ActiveAdmin.register BlogPost do
   end
 
   show do
+    div do
+      h2 link_to 'Comments', admin_blog_post_comments_path(blog_post.id)
+    end
+
     attributes_table do
       row :id
       row 'Author' do
