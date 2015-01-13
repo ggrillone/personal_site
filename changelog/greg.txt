@@ -1,3 +1,7 @@
+2015-01-13 16:44
+
+  Create a separate test database so when running specs it doesn't write to the development DB.
+
 2015-01-13 16:42
 
   New branch issue-65:

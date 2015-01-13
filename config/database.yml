@@ -7,5 +7,5 @@ development:
 
 test:
   adapter: postgresql
-  database: personal_site_development
+  database: personal_site_test
   pool: 5
