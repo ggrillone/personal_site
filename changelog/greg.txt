@@ -1,3 +1,10 @@
+2015-01-12 21:09
+
+  New branch issue-58:
+
+  * https://github.com/ggrillone/personal_site/issues/58
+  * In the blog post index view, add a link to the comments index view scoped to that blog post
+
 2015-01-12 20:51
 
   Add auditing for the destroy action for the BlogPost and Comment resources.
