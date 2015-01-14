@@ -1,3 +1,7 @@
+2015-01-13 21:26
+
+  Remove the update and edit actions and remove the edit form. Add 2 new batch actions to approve and unapprove comments.
+
 2015-01-13 20:59
 
   New branch issue-62:
