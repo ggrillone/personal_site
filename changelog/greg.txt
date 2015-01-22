@@ -1,3 +1,11 @@
+2015-01-21 10:52
+
+  New branch issue-68:
+  
+  * https://github.com/ggrillone/personal_site/issues/68
+  * Refactor the audit log module
+  * Fix auditing for batch actions
+
 2015-01-13 21:26
 
   Remove the update and edit actions and remove the edit form. Add 2 new batch actions to approve and unapprove comments.
