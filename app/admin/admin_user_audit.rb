@@ -37,15 +37,13 @@ ActiveAdmin.register AdminUserAudit do
           JSON.parse(admin_user_audit.data['raw_data'])['changes'].each do |change|
             div do
               div do
-                "Attribute: #{change.keys.first}" # we can assume there will always be 1 key
-              end
-
-              div do
-                "Previous value: #{change[change.keys.first]['original_value']}"
-              end
-
-              div do
-                "New value: #{change[change.keys.first]['new_value']}"
+                change.keys.each do |key|
+                  div do
+                    span "Attribute: #{key}"
+                    span "Previous value: #{change[key].is_a?(Hash) ? change[key]['original_value'] : change[key]}"
+                    span "New value: #{change[key].is_a?(Hash) ? change[key]['new_value'] : change[key]}"
+                  end
+                end
               end
             end
 

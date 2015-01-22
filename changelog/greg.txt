@@ -1,3 +1,15 @@
+2015-01-13 21:26
+
+  Remove the update and edit actions and remove the edit form. Add 2 new batch actions to approve and unapprove comments.
+
+2015-01-13 20:59
+
+  New branch issue-62:
+
+  * https://github.com/ggrillone/personal_site/issues/62
+  * refactor the comment edit/update actions into a custom action that simply approves/unapproves a comment.
+  * remove the edit form
+
 2015-01-13 16:44
 
   Create a separate test database so when running specs it doesn't write to the development DB.

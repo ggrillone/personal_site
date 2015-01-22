@@ -62,40 +62,49 @@ RSpec.describe 'BlogPostComment' do
     end
   end
 
-  describe 'GET /admin/blog_posts/:id/comments/:id/edit' do
-    before { get edit_admin_blog_post_comment_path(blog_post.id, comment.id) }
-
-    it 'should render the edit template' do
-      expect(response).to render_template(:edit)
+  describe 'POST /admin/blog_posts/:id/comments/batch_action APPROVE' do
+    let!(:unapproved_comment) { Fabricate(:comment, blog_post_id: blog_post.id, approved_at: nil) }
+    let!(:unapproved_comment2) { Fabricate(:comment, blog_post_id: blog_post.id, approved_at: nil) }
+    before do
+      post batch_action_admin_blog_post_comments_path(blog_post.id),
+        batch_action: 'approve',
+        collection_selection: [unapproved_comment.id, unapproved_comment2.id]
     end
 
-    it 'should respond with a status code of 200' do
-      expect(response.status).to be(200)
+    it 'should respond with with a status of 302' do
+      expect(response.status).to be(302)
+    end
+
+    it 'should approve both comments' do
+      expect(Comment.find(unapproved_comment.id).approved_at).to_not be(nil)
+      expect(Comment.find(unapproved_comment2.id).approved_at).to_not be(nil)
+    end
+
+    it 'should redirect to the blog post comments index page' do
+      expect(response).to redirect_to(admin_blog_post_comments_path(blog_post.id))
     end
   end
 
-  describe 'PUT /admin/blog_posts/:id/comments/:id' do
+  describe 'POST /admin/blog_posts/:id/comment/batch_action UNAPPROVE' do
+    let!(:approved_comment) { Fabricate(:comment, blog_post_id: blog_post.id) }
+    let!(:approved_comment2) { Fabricate(:comment, blog_post_id: blog_post.id) }
     before do
-      put admin_blog_post_comment_path(blog_post.id, comment.id), comment: {
-        body: 'hello world unique'
-      }
-    end
-
-    it 'should redirect to the comments index page' do
-      expect(response).to redirect_to(admin_blog_post_comments_path(blog_post.id))
-      follow_redirect!
+      post batch_action_admin_blog_post_comments_path(blog_post.id),
+        batch_action: 'unapprove',
+        collection_selection: [approved_comment.id, approved_comment2.id]
     end
 
     it 'should respond with a status of 302' do
       expect(response.status).to be(302)
     end
 
-    it 'should save the new comment' do
-      expect(Comment.find_by_body('hello world unique')).to_not be(nil)
+    it 'should unapprove both comments' do
+      expect(Comment.find(approved_comment.id).approved_at).to be(nil)
+      expect(Comment.find(approved_comment2.id).approved_at).to be(nil)
     end
 
-    it 'should update the body attribute' do
-      expect(Comment.find(comment.id).body).to eq('hello world unique')
+    it 'should redirect to the blog post comments index page' do
+      expect(response).to redirect_to(admin_blog_post_comments_path(blog_post.id))
     end
   end
 

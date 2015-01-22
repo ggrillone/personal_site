@@ -1,33 +1,51 @@
 ActiveAdmin.register Comment do
   belongs_to :blog_post
   permit_params :blog_post_id, :email, :display_name, :ip, :body
-  actions :all, except: [:new, :create]
+  actions :all, except: [:new, :create, :edit, :update]
   includes :blog_post
   filter :email
   filter :display_name
   filter :created_at
   filter :approved_at
+  config.batch_actions = true
   config.sort_order = 'created_at_desc'
   scope :all, default: true
   scope :approved
   scope :not_approved
 
-  controller do
-    def update
-      @comment = Comment.find(params[:id])
-      original_attrs = @comment.attributes
+  batch_action :approve do |ids|
+    @comments = Comment.where(id: ids)
+    original_attrs = @comments.map(&:attributes)
+    blog_post_id = @comments.first.blog_post_id
 
-      if @comment.update(permitted_params[:comment])
-        new_attrs = @comment.attributes
-        AuditLog.create(AdminUserAudit, current_admin_user.id, request, params, 'admin_user_audit_log_blacklist.yml', original_attrs, new_attrs)
-
-        flash[:notice] = "Comment was successfully updated."
-        redirect_to admin_blog_post_comments_path(@comment.blog_post_id)
-      else
-        render 'edit'
-      end
+    if @comments.update_all(approved_at: Time.now.utc)
+      new_attrs = @comments.map(&:attributes)
+      AuditLog.create(AdminUserAudit, current_admin_user.id, request, params, 'admin_user_audit_log_blacklist.yml', original_attrs, new_attrs)
+      flash[:notice] = "#{@comments.count} comments were successfully approved."
+    else
+      flash[:alert] = "Comments failed to be approved."
     end
 
+    redirect_to admin_blog_post_comments_path(blog_post_id)
+  end
+
+  batch_action :unapprove do |ids|
+    @comments = Comment.where(id: ids)
+    original_attrs = @comments.map(&:attributes)
+    blog_post_id = @comments.first.blog_post_id
+
+    if @comments.update_all(approved_at: nil)
+      new_attrs = @comments.map(&:attributes)
+      AuditLog.create(AdminUserAudit, current_admin_user.id, request, params, 'admin_user_audit_log_blacklist.yml', original_attrs, new_attrs)
+      flash[:notice] = "#{@comments.count} comments were successfully unapproved."
+    else
+      flash[:alert] = "Comment failed to be unapproved."
+    end
+
+    redirect_to admin_blog_post_comments_path(blog_post_id)
+  end
+
+  controller do
     def destroy
       @comment = Comment.find(params[:id])
       blog_post_id = @comment.blog_post_id
