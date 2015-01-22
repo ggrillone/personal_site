@@ -15,9 +15,12 @@ ActiveAdmin.register Comment do
 
   batch_action :approve do |ids|
     @comments = Comment.where(id: ids)
+    original_attrs = @comments.map(&:attributes)
     blog_post_id = @comments.first.blog_post_id
 
     if @comments.update_all(approved_at: Time.now.utc)
+      new_attrs = @comments.map(&:attributes)
+      AuditLog.create(AdminUserAudit, current_admin_user.id, request, params, 'admin_user_audit_log_blacklist.yml', original_attrs, new_attrs)
       flash[:notice] = "#{@comments.count} comments were successfully approved."
     else
       flash[:alert] = "Comments failed to be approved."
@@ -28,9 +31,12 @@ ActiveAdmin.register Comment do
 
   batch_action :unapprove do |ids|
     @comments = Comment.where(id: ids)
+    original_attrs = @comments.map(&:attributes)
     blog_post_id = @comments.first.blog_post_id
 
     if @comments.update_all(approved_at: nil)
+      new_attrs = @comments.map(&:attributes)
+      AuditLog.create(AdminUserAudit, current_admin_user.id, request, params, 'admin_user_audit_log_blacklist.yml', original_attrs, new_attrs)
       flash[:notice] = "#{@comments.count} comments were successfully unapproved."
     else
       flash[:alert] = "Comment failed to be unapproved."

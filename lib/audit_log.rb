@@ -16,8 +16,24 @@ module AuditLog
     resource_model.create(audit_log_data)
   end
 
-  def self.cleanse(blacklist_file, vals = {})
+  def self.cleanse(blacklist_file, vals)
     blacklist = self.get_blacklist(blacklist_file)
+    cleansed_params = nil
+
+    if vals.is_a?(Array)
+      cleansed_params = []
+      vals.each do |val|
+        cleansed_params.push(self.cleanse_vals_from_hash(blacklist, val))
+      end
+    else
+      cleansed_params = self.cleanse_vals_from_hash(blacklist, vals)
+    end
+    
+
+    cleansed_params
+  end
+
+  def self.cleanse_vals_from_hash(blacklist, vals = {})
     cleansed_params = {}
 
     vals.keys.each do |key|
@@ -69,35 +85,49 @@ module AuditLog
   def self.get_changed_attributes(blacklist_file, original_attrs = {}, new_attrs = {})
     original_attrs_cleansed = self.cleanse(blacklist_file, original_attrs)
     new_attrs_cleansed = self.cleanse(blacklist_file, new_attrs)
+    changes = nil    
+
+    # Covers batch actions
+    if original_attrs_cleansed.is_a?(Array)
+      original_attrs_cleansed.each_with_index do |original_attr, index|
+        self.compare_original_attrs_and_new_attrs(original_attr, new_attrs_cleansed[index])
+      end
+    else
+      changes = self.compare_original_attrs_and_new_attrs(original_attrs_cleansed, new_attrs_cleansed)
+    end
+    
+  end
+
+  def self.compare_original_attrs_and_new_attrs(original_attrs, new_attrs)
     changes = []
 
-    original_attrs_cleansed.keys.each do |key|
-      if original_attrs_cleansed[key].is_a?(Hash)
+    original_attrs.keys.each do |key|
+      if original_attrs[key].is_a?(Hash)
         changes.push({ :"#{key.to_sym}" => {} })
 
-        original_attrs_cleansed[key].keys.each do |sub_key|
-          if original_attrs_cleansed[key][sub_key] != new_attrs_cleansed[key][sub_key]
+        original_attrs[key].keys.each do |sub_key|
+          if original_attrs[key][sub_key] != new_attrs[key][sub_key]
             changes.last[key][sub_key] = {
               :"#{sub_key.to_sym}" => {
-                original_value: original_attrs_cleansed[key][sub_key],
-                new_value: new_attrs_cleansed[key][sub_key]
+                original_value: original_attrs[key][sub_key],
+                new_value: new_attrs[key][sub_key]
               }
             }
           end
         end
-      elsif original_attrs_cleansed[key].is_a?(Array)
+      elsif original_attrs[key].is_a?(Array)
         changes.push({
           :"#{key.to_sym}" => {
-            original_value: original_attrs_cleansed[key],
-            new_value: new_attrs_cleansed[key]
+            original_value: original_attrs[key],
+            new_value: new_attrs[key]
           }
         })
       else
-        if original_attrs_cleansed[key] != new_attrs_cleansed[key]
+        if original_attrs[key] != new_attrs[key]
           changes.push({
             :"#{key.to_sym}" => {
-              original_value: original_attrs_cleansed[key],
-              new_value: new_attrs_cleansed[key]
+              original_value: original_attrs[key],
+              new_value: new_attrs[key]
             }
           })
         end
