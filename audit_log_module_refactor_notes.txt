@@ -1,0 +1,101 @@
+The responsibility of this class is to create a object to store the raw data
+class AuditLogDataTransferObject
+params:
+* audited_user_id
+* request object
+* raw request params
+
+The responsibility  of this class is to cleanse any unwanted attributes from the data
+class AuditLogCleanser
+params:
+* RawAuditLog
+* the blacklist file that contains all values that should be stripped out
+
+The responsibility of this class to figure out which attributes of the record have changed
+class AuditLogDiff
+params:
+* the attribute values of the model before it is updated
+* the attribute values of the model after it is updated
+
+The responsibilty of this class is to persist the audit data to the database
+class AuditLog
+params:
+* RawAuditLog
+* the rails database model to save to
+
+
+Exceptions:
+* MissingArguments
+* InvalidArgument
+* FileNotFound
+* ModelDoesNotExist
+
+
+Law of Demeter:
+
+A module should not know about the innards of the object it manipulates.
+
+
+Method f of class C should only call the methods of these:
+- C
+
+class C
+  def f
+    some_other_func()
+  end
+
+  def some_other_func
+  end
+end
+
+- an object created by f
+
+class C
+  def f
+    person = Person.new
+    person.setName('John Doe')
+  end
+end
+
+- an object passed as an argument of f
+
+class C
+  def initialize
+    person = Person.new
+    f.setPersonName(person)
+  end
+
+  def f(person)
+    person.setName('John Doe')
+  end
+end
+
+- an object held in an instance variable of C
+
+class C
+  def initialize
+    self.person = Person.new
+    f()
+  end
+
+  def f
+    self.person.setName('John Doe')
+  end
+end
+
+Should NOT:
+- invoke methods on objects that are returned by any of the allowed function
+
+class C
+  def initialize
+    self.person = Person.new
+  end
+
+  def f
+    self.person.getDog().name
+  end
+end
+
+- talk to strangers
+
+

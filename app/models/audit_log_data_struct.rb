@@ -1,17 +1,96 @@
-module AuditLog
-  def self.create(audit_log_data)
-    self.validate_audit_log_data(audit_log_data)
+class AuditLogDataStruct
+  attr_accessor :audited_user_id, :save_to_model, :http_request_object,
+    :http_request_params, :original_attributes_before_update,
+    :new_attributes_after_update, :blacklist_file
+
+  def initialize(args = {})
+    begin
+      set_required_attributes(args)
+    rescue AuditLogException::MissingArguments => e
+      raise AuditLogException::MissingArguments
+      Rails.logger.info "[#{Time.now.utc}] AuditLogException::MissingArguments #{e}"
+    end
+
+    begin
+      set_optional_attributes(args)
+    rescue AuditLogException::FileNotFound => e
+      raise AuditLogException::FileNotFound
+      Rails.logger.info "[#{Time.now.utc}] AuditLogException::FileNotFound #{e}"
+    end
   end
 
   private
 
-    def self.validate_audit_log_data(audit_log_data)
-      if audit_log_data.class != AuditLogDataStruct
-        raise AuditLogException::InvalidArgumentType
-        Rails.logger.info "[#{Time.now.utc}] AuditLogException::InvalidArgumentType argument audit_log_data is not of type AuditLogDataStruct."
+    def set_required_attributes(args)
+      exception_msg = ''
+
+      if !args.has_key?(:audited_user_id)
+        exception_msg += 'Missing key audited_user_id. '
+      end
+
+      if !args.has_key?(:http_request_object)
+        exception_msg += 'Missing key http_request_object. '
+      end
+      
+      if !args.has_key?(:http_request_params)
+        exception_msg += 'Missing key http_request_params. '
+      end
+
+      if !args.has_key?(:save_to_model)
+        exception_msg += 'Missing key save_to_model. '
+      else
+        check_if_model_exists(args[:save_to_model])
+      end
+
+      if exception_msg.empty?
+        self.audited_user_id = args[:audited_user_id]
+        self.http_request_params = args[:http_request_object]
+        self.http_request_params = args[:http_request_params]
+        self.save_to_model = args[:save_to_model]
+      else
+        raise AuditLogException::MissingArguments.new(exception_msg)
+      end
+    end
+
+    def set_optional_attributes(args)
+      if args.has_key?(:blacklist_file)
+        check_if_blacklist_file_exists(args[:blacklist_file])
+      end
+
+      self.blacklist_file =
+        args.has_key?(:blacklist_file) ?
+          "#{Rails.root}/config/blacklists/#{args[:blacklist_file]}" :
+            nil
+      self.original_attributes_before_update =
+        args.has_key?(:original_attributes_before_update) ?
+          args[:original_attributes_before_update] :
+            nil
+      self.new_attributes_after_update =
+        args.has_key?(:new_attributes_after_update) ?
+          args[:new_attributes_after_update] :
+            nil
+    end
+
+    def check_if_blacklist_file_exists(blacklist_file)
+      if !File.exist?("#{Rails.root}/config/blacklists/#{blacklist_file}")
+        raise AuditLogException::FileNotFound.new('File not found for argument key blacklist_file.')
+      end
+    end
+
+    def check_if_model_exists(model_str)
+      begin
+        model_str.constantize
+      rescue
+        raise AuditLogException::ModelDoesNotExist
+        Rails.logger.info "[#{Time.now.utc}] AuditLogException::ModelDoesNotExist for argument save_to_model: #{model_str}"
       end
     end
 end
+
+
+
+
+
 
 # ##
 # # A generic module for creating log records
